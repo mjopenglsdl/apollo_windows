@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+
+
+# dir 
+.vscode/*
+
+back/*
+
+cyber/proto/cyber/*
+
+build/*
+
+
+# other files
+BUILD
