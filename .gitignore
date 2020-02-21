@@ -38,6 +38,7 @@
 back/*
 
 cyber/proto/cyber/*
+examples/proto/examples/proto/*
 
 build/*
 

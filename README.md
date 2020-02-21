@@ -1,5 +1,5 @@
 # apollo_windows
-Windows minimal portation(CMake) of Baidu's Apollo autonomous driving platform
+Windows minimal portation (MinGW + CMake) of Baidu's Apollo autonomous driving platform
 
 ## Motivations
 The Baidu's **Apollo** is a very famous platform for autonomous driving.
@@ -10,15 +10,17 @@ The original version of **Apollo** only supports the *Linux* system.
 But most people use *Windows* computor on their daily basis. For me, I am not willing to install another os for my desktop in order to study and test the **Apollo** source code
 
 ### Why not fork from original repo?
-When I downloaded from the original repo in *Feb 2020*, I was shocked by size: wow, *1.3GB*!. I don't need the whole bunch of files in order to study its architecture. It makes people inconvenient to download and study it. Therefore, I have cut some unimportant features and only leave some core features. The compiled *dll* only takes about *10MB*.
+When I downloaded from the original repo in *Feb 2020*, I was shocked by size: oh dear, *1.3GB*! I don't need the whole bunch of files in order to study its architecture. It makes people inconvenient to download and study it. Therefore, I have cut some unimportant features and only leave some core features. The compiled *dll* only takes about *10MB*.
 
 ### Why not use Bazel for the build system?
-I am not a *Java* fan and I don't really want to install a Java runtime on my machine. Plus, the download of *Bazel* is slow.
+I am not a fan of *Java* and I don't really want to install a Java runtime on my machine. 
 **CMake** is commonly used for C++ project. All of its dependencies support cmake as well.
 
-## Progress
-Currently I have make core lib **libapollo** as a *dll* and have successfilly compiled it. I have commented out some Linux specific code to make it compile. There is still some further work. But it does affect you to run it :-)
 
+## Windows environment
+* MSYS2
+* MinGW64
+* cmake
 
 ## Dependencies
 ```cmake
@@ -31,6 +33,12 @@ find_package(fastcdr REQUIRED)
 find_package(fastrtps REQUIRED)
 find_package(Poco REQUIRED Foundation)
 ```
+
+## Install Dependencies
+
+
+## Progress
+Currently I have successfilly compiled the core lib **libcyber.dll** as and have the *mainboard* program to run. I have commented out some Linux specific code to make it compile. There is still some further work. But it does affect you to run it :-)
 
 
 ## Copyright

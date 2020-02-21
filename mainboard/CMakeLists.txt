@@ -7,8 +7,8 @@ SET(APOLLO_APP "apollo_app")
 
 add_executable(${APOLLO_APP} ${APP_SRC_FILES})
 
-# message(FATAL " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${APOLLO_LIB}")
+# message(FATAL " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${CYBER_LIB}")
 
 target_link_libraries(${APOLLO_APP} 
-            ${APOLLO_LIB}
+            ${CYBER_LIB}
             )

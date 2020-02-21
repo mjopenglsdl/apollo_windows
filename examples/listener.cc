@@ -15,7 +15,7 @@
  *****************************************************************************/
 
 #include "cyber/cyber.h"
-#include "cyber/examples/proto/examples.pb.h"
+#include "examples/proto/examples.pb.h"
 
 void MessageCallback(
     const std::shared_ptr<apollo::cyber::examples::proto::Chatter>& msg) {
