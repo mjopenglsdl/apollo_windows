@@ -13,15 +13,10 @@ find_package(Poco REQUIRED Foundation)
 
 # cyber lib
 file(GLOB_RECURSE SRC_FILES "*.cc")
-
-
-    
-
-
-
+ 
 
 # message("SRC_FILES: ${SRC_FILES}")
 
 add_library(${CYBER_LIB} SHARED ${SRC_FILES})
 target_link_libraries(${CYBER_LIB} glog gtest ${PROTOBUF_LIBRARIES} fastcdr fastrtps
-            Poco::Foundation gflags pcrecpp atomic) 
+            Poco::Foundation gflags pcrecpp atomic)
