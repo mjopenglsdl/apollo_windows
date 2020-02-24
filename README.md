@@ -17,6 +17,10 @@ I am not a fan of *Java* and I don't really want to install a Java runtime on my
 **CMake** is commonly used for C++ project. All of its dependencies support cmake as well.
 
 
+## Progress
+Currently I have successfilly compiled the core lib **libcyber.dll** as and have the *mainboard* program to run. I have commented out some Linux specific code to make it compile. There is still some further work.
+
+
 ## Windows environment
 * MSYS2
 * MinGW64
@@ -35,10 +39,14 @@ find_package(Poco REQUIRED Foundation)
 ```
 
 ## Install Dependencies
+TODO:
 
 
-## Progress
-Currently I have successfilly compiled the core lib **libcyber.dll** as and have the *mainboard* program to run. I have commented out some Linux specific code to make it compile. There is still some further work. But it does affect you to run it :-)
+## How to run it?
+Under the build directory, you will find a folder called **bin**, all generated lib and executable will be saved here.
+
+### Log
+Log will be saved on the same dir as the *exe* file, it is named with current running executable name, like "talker.exe.log.INFO.20200224-150237.7724"
 
 
 ## Copyright
