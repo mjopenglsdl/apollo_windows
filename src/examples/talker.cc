@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
   // create talker
   auto talker = talker_node->CreateWriter<Chatter>("channel/chatter");
   Rate rate(1.0);
+      AINFO << "000000000000000000!";
+      AERROR << "000000000000000000!";
+
   while (apollo::cyber::OK()) {
     static uint64_t seq = 0;
     auto msg = std::make_shared<Chatter>();

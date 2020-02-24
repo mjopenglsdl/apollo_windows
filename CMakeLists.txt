@@ -11,11 +11,14 @@ include_directories("${PROJECT_SOURCE_DIR}/cyber/proto")
 include_directories("${PROJECT_SOURCE_DIR}")
 
 
-SET(CYBER_LIB "cyber")
+set(CYBER_LIB "cyber")
+
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+set(LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")
+
 
 # lib 
 add_subdirectory(cyber)
 
 # exe
-add_subdirectory(mainboard)
-add_subdirectory(examples)  
+add_subdirectory(src)
