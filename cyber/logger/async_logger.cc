@@ -25,6 +25,9 @@
 #include "cyber/logger/log_file_object.h"
 #include "cyber/logger/logger_util.h"
 
+// #include <iostream>
+// using namespace std;
+
 namespace apollo {
 namespace cyber {
 namespace logger {
@@ -117,6 +120,8 @@ void AsyncLogger::FlushBuffer(const std::unique_ptr<std::deque<Msg>>& buffer) {
       if (!FLAGS_log_dir.empty()) {
         file_name = FLAGS_log_dir + "/" + file_name;
       }
+      // cout<<"async file_name: "<<file_name<<endl;
+
       fileobject = new LogFileObject(google::INFO, file_name.c_str());
       fileobject->SetSymlinkBasename(module_name.c_str());
       moduleLoggerMap[module_name] = fileobject;

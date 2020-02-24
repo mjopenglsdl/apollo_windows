@@ -59,6 +59,7 @@ void Logger::Write(bool force_flush, time_t timestamp, const char* message,
       if (!FLAGS_log_dir.empty()) {
         file_name = FLAGS_log_dir + "/" + file_name;
       }
+
       fileobject = new LogFileObject(google::INFO, file_name.c_str());
       fileobject->SetSymlinkBasename(module_name.c_str());
       moduleLoggerMap[module_name] = fileobject;
