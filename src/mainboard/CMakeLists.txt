@@ -1,14 +1,12 @@
 
 file(GLOB_RECURSE APP_SRC_FILES "*.cc")
 
-SET(APOLLO_APP "apollo_app")
+SET(MAIN_BOARD "mainboard")
 
 # message("SRC_FILES: ${SRC_FILES}")
 
-add_executable(${APOLLO_APP} ${APP_SRC_FILES})
+add_executable(${MAIN_BOARD} ${APP_SRC_FILES})
 
 # message(FATAL " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${CYBER_LIB}")
 
-target_link_libraries(${APOLLO_APP} 
-            ${CYBER_LIB}
-            )
+target_link_libraries(${MAIN_BOARD} ${CYBER_LIB})

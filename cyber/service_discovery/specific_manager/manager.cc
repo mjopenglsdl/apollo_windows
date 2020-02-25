@@ -25,6 +25,10 @@
 #include "cyber/transport/rtps/underlay_message.h"
 #include "cyber/transport/rtps/underlay_message_type.h"
 
+// #include <iostream>
+// using namespace std;
+
+
 namespace apollo {
 namespace cyber {
 namespace service_discovery {
@@ -54,6 +58,13 @@ bool Manager::StartDiscovery(RtpsParticipant* participant) {
   if (is_discovery_started_.exchange(true)) {
     return true;
   }
+
+  // bool ret1 = CreatePublisher(participant);
+  // bool ret2 =  CreateSubscriber(participant);
+
+  // cout<<"!!!!!!!!! ret1: "<<ret1<<endl;
+  // cout<<"ret2: "<<ret2<<endl;
+
   if (!CreatePublisher(participant) || !CreateSubscriber(participant)) {
     AERROR << "create publisher or subscriber failed.";
     StopDiscovery();
@@ -145,6 +156,8 @@ bool Manager::CreatePublisher(RtpsParticipant* participant) {
       false);
   publisher_ =
       eprosima::fastrtps::Domain::createPublisher(participant, pub_attr);
+
+      // cout<<"pub: "<<(publisher_ != nullptr)<<", attr: "<< pub_attr.topic.getTopicDataType()<<endl;
   return publisher_ != nullptr;
 }
 
@@ -159,6 +172,7 @@ bool Manager::CreateSubscriber(RtpsParticipant* participant) {
 
   subscriber_ = eprosima::fastrtps::Domain::createSubscriber(
       participant, sub_attr, listener_);
+      // cout<<"sub: "<<(subscriber_ != nullptr)<<endl;
   return subscriber_ != nullptr;
 }
 

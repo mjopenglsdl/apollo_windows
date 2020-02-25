@@ -20,6 +20,10 @@
 #include "cyber/common/log.h"
 #include "cyber/proto/transport_conf.pb.h"
 
+// #include <iostream>
+// using namespace std;
+
+
 namespace apollo {
 namespace cyber {
 namespace transport {
@@ -49,15 +53,19 @@ void Participant::Shutdown() {
 
 eprosima::fastrtps::Participant* Participant::fastrtps_participant() {
   if (shutdown_.load()) {
+    // cout<<"f 000"<<endl;
     return nullptr;
   }
 
   std::lock_guard<std::mutex> lk(mutex_);
   if (fastrtps_participant_ != nullptr) {
+    // cout<<"f 111"<<endl;
     return fastrtps_participant_;
   }
 
   CreateFastRtpsParticipant(name_, send_port_, listener_);
+  // cout<<"f 222"<<endl;
+
   return fastrtps_participant_;
 }
 
@@ -66,77 +74,79 @@ void Participant::CreateFastRtpsParticipant(
     eprosima::fastrtps::ParticipantListener* listener) {
   uint32_t domain_id = 80;
 
-  // const char* val = ::getenv("CYBER_DOMAIN_ID");
-  // if (val != nullptr) {
-  //   try {
-  //     domain_id = std::stoi(val);
-  //   } catch (const std::exception& e) {
-  //     AERROR << "convert domain_id error " << e.what();
-  //     return;
-  //   }
-  // }
+  const char* val = ::getenv("CYBER_DOMAIN_ID");
+  if (val != nullptr) {
+    try {
+      domain_id = std::stoi(val);
+    } catch (const std::exception& e) {
+      AERROR << "convert domain_id error " << e.what();
+      return;
+    }
+  }
 
-  // auto part_attr_conf = std::make_shared<proto::RtpsParticipantAttr>();
-  // auto& global_conf = common::GlobalData::Instance()->Config();
-  // if (global_conf.has_transport_conf() &&
-  //     global_conf.transport_conf().has_participant_attr()) {
-  //   part_attr_conf->CopyFrom(global_conf.transport_conf().participant_attr());
-  // }
+  auto part_attr_conf = std::make_shared<proto::RtpsParticipantAttr>();
+  auto& global_conf = common::GlobalData::Instance()->Config();
+  if (global_conf.has_transport_conf() &&
+      global_conf.transport_conf().has_participant_attr()) {
+    part_attr_conf->CopyFrom(global_conf.transport_conf().participant_attr());
+  }
 
-  // eprosima::fastrtps::ParticipantAttributes attr;
-  // attr.rtps.defaultSendPort = send_port;
-  // attr.rtps.port.domainIDGain =
-  //     static_cast<uint16_t>(part_attr_conf->domain_id_gain());
-  // attr.rtps.port.portBase = static_cast<uint16_t>(part_attr_conf->port_base());
-  // attr.rtps.use_IP6_to_send = false;
-  // attr.rtps.builtin.use_SIMPLE_RTPSParticipantDiscoveryProtocol = true;
-  // attr.rtps.builtin.use_SIMPLE_EndpointDiscoveryProtocol = true;
-  // attr.rtps.builtin.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter =
-  //     true;
-  // attr.rtps.builtin.m_simpleEDP.use_PublicationWriterANDSubscriptionReader =
-  //     true;
-  // attr.rtps.builtin.domainId = domain_id;
+  eprosima::fastrtps::ParticipantAttributes attr;
+  attr.rtps.defaultSendPort = send_port;
+  attr.rtps.port.domainIDGain =
+      static_cast<uint16_t>(part_attr_conf->domain_id_gain());
+  attr.rtps.port.portBase = static_cast<uint16_t>(part_attr_conf->port_base());
+  attr.rtps.use_IP6_to_send = false;
+  attr.rtps.builtin.use_SIMPLE_RTPSParticipantDiscoveryProtocol = true;
+  attr.rtps.builtin.use_SIMPLE_EndpointDiscoveryProtocol = true;
+  attr.rtps.builtin.m_simpleEDP.use_PublicationReaderANDSubscriptionWriter =
+      true;
+  attr.rtps.builtin.m_simpleEDP.use_PublicationWriterANDSubscriptionReader =
+      true;
+  attr.rtps.builtin.domainId = domain_id;
 
-  // /**
-  //  * The user should set the lease_duration and the announcement_period with
-  //  * values that differ in at least 30%. Values too close to each other may
-  //  * cause the failure of the writer liveliness assertion in networks with high
-  //  * latency or with lots of communication errors.
-  //  */
+  /**
+   * The user should set the lease_duration and the announcement_period with
+   * values that differ in at least 30%. Values too close to each other may
+   * cause the failure of the writer liveliness assertion in networks with high
+   * latency or with lots of communication errors.
+   */
   // attr.rtps.builtin.leaseDuration.seconds = part_attr_conf->lease_duration();
   // attr.rtps.builtin.leaseDuration_announcementperiod.seconds =
   //     part_attr_conf->announcement_period();
 
-  // attr.rtps.setName(name.c_str());
+  attr.rtps.setName(name.c_str());
 
-  // std::string ip_env("127.0.0.1");
-  // const char* ip_val = ::getenv("CYBER_IP");
-  // if (ip_val != nullptr) {
-  //   ip_env = ip_val;
-  //   if (ip_env.empty()) {
-  //     AERROR << "invalid CYBER_IP (an empty string)";
-  //     return;
-  //   }
-  // }
-  // ADEBUG << "cyber ip: " << ip_env;
+  std::string ip_env("127.0.0.1");
+  const char* ip_val = ::getenv("CYBER_IP");
+  if (ip_val != nullptr) {
+    ip_env = ip_val;
+    if (ip_env.empty()) {
+      AERROR << "invalid CYBER_IP (an empty string)";
+      return;
+    }
+  }
+  ADEBUG << "cyber ip: " << ip_env;
 
-  // eprosima::fastrtps::rtps::Locator_t locator;
-  // locator.port = 0;
-  // RETURN_IF(!locator.set_IP4_address(ip_env));
+  // cout<<"ip_env: "<<ip_env<<endl;
 
-  // locator.kind = LOCATOR_KIND_UDPv4;
+  eprosima::fastrtps::rtps::Locator_t locator;
+  locator.port = 0;
+  RETURN_IF(!locator.set_IP4_address(ip_env));
 
-  // attr.rtps.defaultUnicastLocatorList.push_back(locator);
-  // attr.rtps.defaultOutLocatorList.push_back(locator);
-  // attr.rtps.builtin.metatrafficUnicastLocatorList.push_back(locator);
+  locator.kind = LOCATOR_KIND_UDPv4;
 
-  // locator.set_IP4_address(239, 255, 0, 1);
-  // attr.rtps.builtin.metatrafficMulticastLocatorList.push_back(locator);
+  attr.rtps.defaultUnicastLocatorList.push_back(locator);
+  attr.rtps.defaultOutLocatorList.push_back(locator);
+  attr.rtps.builtin.metatrafficUnicastLocatorList.push_back(locator);
 
-  // fastrtps_participant_ =
-  //     eprosima::fastrtps::Domain::createParticipant(attr, listener);
-  // RETURN_IF_NULL(fastrtps_participant_);
-  // eprosima::fastrtps::Domain::registerType(fastrtps_participant_, &type_);
+  locator.set_IP4_address(239, 255, 0, 1);
+  attr.rtps.builtin.metatrafficMulticastLocatorList.push_back(locator);
+
+  fastrtps_participant_ =
+      eprosima::fastrtps::Domain::createParticipant(attr, listener);
+  RETURN_IF_NULL(fastrtps_participant_);
+  eprosima::fastrtps::Domain::registerType(fastrtps_participant_, &type_);
 }
 
 }  // namespace transport

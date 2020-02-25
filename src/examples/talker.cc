@@ -19,6 +19,10 @@
 #include "cyber/time/rate.h"
 #include "cyber/time/time.h"
 
+#include <iostream>
+
+using namespace std;
+
 using apollo::cyber::Rate;
 using apollo::cyber::Time;
 using apollo::cyber::examples::proto::Chatter;
@@ -27,14 +31,14 @@ int main(int argc, char *argv[])
 {
   // init cyber framework
   apollo::cyber::Init(argv[0]);
-  
+
   // create talker node
   auto talker_node = apollo::cyber::CreateNode("talker");
   // create talker
   auto talker = talker_node->CreateWriter<Chatter>("channel/chatter");
   Rate rate(1.0);
-      AINFO << "000000000000000000!";
-      AERROR << "000000000000000000!";
+
+  AINFO << "000000000000000000!";
 
   while (apollo::cyber::OK()) {
     static uint64_t seq = 0;

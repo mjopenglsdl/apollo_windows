@@ -35,6 +35,9 @@
 #include "cyber/timer/timing_wheel.h"
 #include "cyber/transport/transport.h"
 
+// #include <iostream>
+// using namespace std;
+
 namespace apollo {
 namespace cyber {
 
@@ -93,8 +96,13 @@ bool Init(const char* binary_name) {
 
   InitLogger(binary_name);
   auto thread = const_cast<std::thread*>(async_logger->LogThread());
+
+#ifndef WIN32
   scheduler::Instance()->SetInnerThreadAttr("async_log", thread);
+#endif      
+
   SysMo::Instance();
+
   std::signal(SIGINT, OnShutdown);
   // Register exit handlers
   if (!g_atexit_registered) {
@@ -105,6 +113,7 @@ bool Init(const char* binary_name) {
     AINFO << "Register exit handle succ.";
     g_atexit_registered = true;
   }
+
   SetState(STATE_INITIALIZED);
   return true;
 }

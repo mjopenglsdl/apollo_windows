@@ -115,8 +115,12 @@ void AsyncLogger::FlushBuffer(const std::unique_ptr<std::deque<Msg>>& buffer) {
     LogFileObject* fileobject = nullptr;
     if (moduleLoggerMap.find(module_name) != moduleLoggerMap.end()) {
       fileobject = moduleLoggerMap[module_name];
+
     } else {
+      // cout<<"module_name: "<<module_name<<endl;
+
       std::string file_name = module_name + ".log.INFO.";
+      
       if (!FLAGS_log_dir.empty()) {
         file_name = FLAGS_log_dir + "/" + file_name;
       }

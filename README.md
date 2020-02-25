@@ -39,7 +39,8 @@ find_package(Poco REQUIRED Foundation)
 ```
 
 ## Install Dependencies
-TODO:
+### Fast-RTPS
+Use my **MinGW** version(**v1.5.0** branch) [https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw](https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw)
 
 
 ## How to run it?

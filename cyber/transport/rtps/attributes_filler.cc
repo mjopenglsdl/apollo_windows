@@ -31,87 +31,87 @@ AttributesFiller::~AttributesFiller() {}
 bool AttributesFiller::FillInPubAttr(
     const std::string& channel_name, const QosProfile& qos,
     eprosima::fastrtps::PublisherAttributes* pub_attr) {
-  // RETURN_VAL_IF_NULL(pub_attr, false);
+  RETURN_VAL_IF_NULL(pub_attr, false);
 
-  // pub_attr->topic.topicName = channel_name;
-  // pub_attr->topic.topicDataType = "UnderlayMessage";
-  // pub_attr->topic.topicKind = eprosima::fastrtps::rtps::NO_KEY;
+  pub_attr->topic.topicName = channel_name;
+  pub_attr->topic.topicDataType = "UnderlayMessage";
+  pub_attr->topic.topicKind = eprosima::fastrtps::rtps::NO_KEY;
 
-  // switch (qos.history()) {
-  //   case QosHistoryPolicy::HISTORY_KEEP_LAST:
-  //     pub_attr->topic.historyQos.kind =
-  //         eprosima::fastrtps::KEEP_LAST_HISTORY_QOS;
-  //     break;
-  //   case QosHistoryPolicy::HISTORY_KEEP_ALL:
-  //     pub_attr->topic.historyQos.kind =
-  //         eprosima::fastrtps::KEEP_ALL_HISTORY_QOS;
-  //     break;
-  //   default:
-  //     break;
-  // }
+  switch (qos.history()) {
+    case QosHistoryPolicy::HISTORY_KEEP_LAST:
+      pub_attr->topic.historyQos.kind =
+          eprosima::fastrtps::KEEP_LAST_HISTORY_QOS;
+      break;
+    case QosHistoryPolicy::HISTORY_KEEP_ALL:
+      pub_attr->topic.historyQos.kind =
+          eprosima::fastrtps::KEEP_ALL_HISTORY_QOS;
+      break;
+    default:
+      break;
+  }
 
-  // switch (qos.durability()) {
-  //   case QosDurabilityPolicy::DURABILITY_TRANSIENT_LOCAL:
-  //     pub_attr->qos.m_durability.kind =
-  //         eprosima::fastrtps::TRANSIENT_LOCAL_DURABILITY_QOS;
-  //     break;
-  //   case QosDurabilityPolicy::DURABILITY_VOLATILE:
-  //     pub_attr->qos.m_durability.kind =
-  //         eprosima::fastrtps::VOLATILE_DURABILITY_QOS;
-  //     break;
-  //   default:
-  //     break;
-  // }
+  switch (qos.durability()) {
+    case QosDurabilityPolicy::DURABILITY_TRANSIENT_LOCAL:
+      pub_attr->qos.m_durability.kind =
+          eprosima::fastrtps::TRANSIENT_LOCAL_DURABILITY_QOS;
+      break;
+    case QosDurabilityPolicy::DURABILITY_VOLATILE:
+      pub_attr->qos.m_durability.kind =
+          eprosima::fastrtps::VOLATILE_DURABILITY_QOS;
+      break;
+    default:
+      break;
+  }
 
-  // switch (qos.reliability()) {
-  //   case QosReliabilityPolicy::RELIABILITY_BEST_EFFORT:
-  //     pub_attr->qos.m_reliability.kind =
-  //         eprosima::fastrtps::BEST_EFFORT_RELIABILITY_QOS;
-  //     break;
-  //   case QosReliabilityPolicy::RELIABILITY_RELIABLE:
-  //     pub_attr->qos.m_reliability.kind =
-  //         eprosima::fastrtps::RELIABLE_RELIABILITY_QOS;
-  //     break;
-  //   default:
-  //     break;
-  // }
+  switch (qos.reliability()) {
+    case QosReliabilityPolicy::RELIABILITY_BEST_EFFORT:
+      pub_attr->qos.m_reliability.kind =
+          eprosima::fastrtps::BEST_EFFORT_RELIABILITY_QOS;
+      break;
+    case QosReliabilityPolicy::RELIABILITY_RELIABLE:
+      pub_attr->qos.m_reliability.kind =
+          eprosima::fastrtps::RELIABLE_RELIABILITY_QOS;
+      break;
+    default:
+      break;
+  }
 
-  // if (qos.depth() != QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT) {
-  //   pub_attr->topic.historyQos.depth = static_cast<int32_t>(qos.depth());
-  // }
+  if (qos.depth() != QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT) {
+    pub_attr->topic.historyQos.depth = static_cast<int32_t>(qos.depth());
+  }
 
-  // // ensure the history depth is at least the requested queue size
-  // if (pub_attr->topic.historyQos.depth < 0) {
-  //   return false;
-  // }
+  // ensure the history depth is at least the requested queue size
+  if (pub_attr->topic.historyQos.depth < 0) {
+    return false;
+  }
 
-  // // transform messages per second to rtps heartbeat
-  // // set default heartbeat period
-  // pub_attr->times.heartbeatPeriod.seconds = 1;
-  // pub_attr->times.heartbeatPeriod.fraction = 0;
-  // if (qos.mps() != 0) {
-  //   uint64_t mps = qos.mps();
+  // transform messages per second to rtps heartbeat
+  // set default heartbeat period
+  pub_attr->times.heartbeatPeriod.seconds = 1;
+  pub_attr->times.heartbeatPeriod.fraction = 0;
+  if (qos.mps() != 0) {
+    uint64_t mps = qos.mps();
 
-  //   // adapt heartbeat period
-  //   if (mps > 1024) {
-  //     mps = 1024;
-  //   } else if (mps < 64) {
-  //     mps = 64;
-  //   }
+    // adapt heartbeat period
+    if (mps > 1024) {
+      mps = 1024;
+    } else if (mps < 64) {
+      mps = 64;
+    }
 
-  //   uint64_t fractions = (256ull << 32) / mps;
-  //   uint32_t fraction = fractions & 0xffffffff;
-  //   int32_t seconds = static_cast<int32_t>(fractions >> 32);
+    uint64_t fractions = (256ull << 32) / mps;
+    uint32_t fraction = fractions & 0xffffffff;
+    int32_t seconds = static_cast<int32_t>(fractions >> 32);
 
-  //   pub_attr->times.heartbeatPeriod.seconds = seconds;
-  //   pub_attr->times.heartbeatPeriod.fraction = fraction;
-  // }
+    pub_attr->times.heartbeatPeriod.seconds = seconds;
+    pub_attr->times.heartbeatPeriod.fraction = fraction;
+  }
 
-  // pub_attr->qos.m_publishMode.kind =
-  //     eprosima::fastrtps::ASYNCHRONOUS_PUBLISH_MODE;
-  // pub_attr->historyMemoryPolicy =
-  //     eprosima::fastrtps::rtps::DYNAMIC_RESERVE_MEMORY_MODE;
-  // pub_attr->topic.resourceLimitsQos.max_samples = 10000;
+  pub_attr->qos.m_publishMode.kind =
+      eprosima::fastrtps::ASYNCHRONOUS_PUBLISH_MODE;
+  pub_attr->historyMemoryPolicy =
+      eprosima::fastrtps::rtps::DYNAMIC_RESERVE_MEMORY_MODE;
+  pub_attr->topic.resourceLimitsQos.max_samples = 10000;
 
   return true;
 }

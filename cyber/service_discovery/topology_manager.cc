@@ -109,7 +109,7 @@ bool TopologyManager::CreateParticipant() {
       common::GlobalData::Instance()->HostName() + '+' +
       std::to_string(common::GlobalData::Instance()->ProcessId());
   participant_listener_ = new ParticipantListener(std::bind(
-      &TopologyManager::OnParticipantChange, this, std::placeholders::_1));
+      &TopologyManager::OnParticipantChange, this, std::placeholders::_1));      
   participant_ = std::make_shared<transport::Participant>(
       participant_name, 11511, participant_listener_);
   return true;
@@ -136,44 +136,44 @@ void TopologyManager::OnParticipantChange(const PartInfo& info) {
 }
 
 bool TopologyManager::Convert(const PartInfo& info, ChangeMsg* msg) {
-  // auto guid = info.rtps.m_guid;
-  // auto status = info.rtps.m_status;
-  // std::string participant_name("");
-  // OperateType opt_type = OperateType::OPT_JOIN;
+  auto guid = info.rtps.m_guid;
+  auto status = info.rtps.m_status;
+  std::string participant_name("");
+  OperateType opt_type = OperateType::OPT_JOIN;
 
-  // switch (status) {
-  //   case eprosima::fastrtps::rtps::DISCOVERY_STATUS::DISCOVERED_RTPSPARTICIPANT:
-  //     participant_name = info.rtps.m_RTPSParticipantName;
-  //     participant_names_[guid] = participant_name;
-  //     opt_type = OperateType::OPT_JOIN;
-  //     break;
+  switch (status) {
+    case eprosima::fastrtps::rtps::DISCOVERY_STATUS::DISCOVERED_RTPSPARTICIPANT:
+      participant_name = info.rtps.m_RTPSParticipantName;
+      participant_names_[guid] = participant_name;
+      opt_type = OperateType::OPT_JOIN;
+      break;
 
-  //   case eprosima::fastrtps::rtps::DISCOVERY_STATUS::REMOVED_RTPSPARTICIPANT:
-  //   case eprosima::fastrtps::rtps::DISCOVERY_STATUS::DROPPED_RTPSPARTICIPANT:
-  //     if (participant_names_.find(guid) != participant_names_.end()) {
-  //       participant_name = participant_names_[guid];
-  //       participant_names_.erase(guid);
-  //     }
-  //     opt_type = OperateType::OPT_LEAVE;
-  //     break;
+    case eprosima::fastrtps::rtps::DISCOVERY_STATUS::REMOVED_RTPSPARTICIPANT:
+    case eprosima::fastrtps::rtps::DISCOVERY_STATUS::DROPPED_RTPSPARTICIPANT:
+      if (participant_names_.find(guid) != participant_names_.end()) {
+        participant_name = participant_names_[guid];
+        participant_names_.erase(guid);
+      }
+      opt_type = OperateType::OPT_LEAVE;
+      break;
 
-  //   default:
-  //     break;
-  // }
+    default:
+      break;
+  }
 
-  // std::string host_name("");
-  // int process_id = 0;
-  // if (!ParseParticipantName(participant_name, &host_name, &process_id)) {
-  //   return false;
-  // }
+  std::string host_name("");
+  int process_id = 0;
+  if (!ParseParticipantName(participant_name, &host_name, &process_id)) {
+    return false;
+  }
 
-  // msg->set_timestamp(cyber::Time::Now().ToNanosecond());
-  // msg->set_change_type(ChangeType::CHANGE_PARTICIPANT);
-  // msg->set_operate_type(opt_type);
-  // msg->set_role_type(RoleType::ROLE_PARTICIPANT);
-  // auto role_attr = msg->mutable_role_attr();
-  // role_attr->set_host_name(host_name);
-  // role_attr->set_process_id(process_id);
+  msg->set_timestamp(cyber::Time::Now().ToNanosecond());
+  msg->set_change_type(ChangeType::CHANGE_PARTICIPANT);
+  msg->set_operate_type(opt_type);
+  msg->set_role_type(RoleType::ROLE_PARTICIPANT);
+  auto role_attr = msg->mutable_role_attr();
+  role_attr->set_host_name(host_name);
+  role_attr->set_process_id(process_id);
   return true;
 }
 
