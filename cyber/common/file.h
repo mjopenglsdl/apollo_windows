@@ -35,6 +35,8 @@
 #include "google/protobuf/io/zero_copy_stream_impl.h"
 #include "google/protobuf/text_format.h"
 
+#include "cyber/platform.h"
+
 /**
  * @namespace apollo::common::util
  * @brief apollo::common::util
@@ -178,9 +180,6 @@ bool EnsureDirectory(const std::string &directory_path);
  * @return If the action is successful.
  */
 bool RemoveAllFiles(const std::string &directory_path);
-
-// TODO:
-#define DT_DIR 0
 
 /**
  * @brief List sub-paths.

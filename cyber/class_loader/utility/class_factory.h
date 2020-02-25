@@ -42,9 +42,7 @@ class AbstractClassFactoryBase {
   std::vector<ClassLoader*> GetRelativeClassLoaders();
   const std::string GetRelativeLibraryPath() const;
   const std::string GetBaseClassName() const;
-  const std::string GetClassName() const{
-      return class_name_;
-  };
+  const std::string GetClassName() const;
 
  protected:
   std::vector<ClassLoader*> relative_class_loaders_;

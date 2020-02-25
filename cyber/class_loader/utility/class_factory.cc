@@ -17,6 +17,9 @@
 
 #include "cyber/class_loader/class_loader.h"
 
+#include "cyber/platform.h"
+
+
 namespace apollo {
 namespace cyber {
 namespace class_loader {
@@ -73,10 +76,9 @@ const std::string AbstractClassFactoryBase::GetBaseClassName() const {
   return base_class_name_;
 }
 
-// TODO:
-// const std::string AbstractClassFactoryBase::GetClassName() const {
-//   return class_name_;
-// }
+const std::string AbstractClassFactoryBase::GetClassName() const {
+  return class_name_;
+}
 
 }  // namespace utility
 }  // namespace class_loader
