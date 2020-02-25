@@ -49,6 +49,70 @@ Under the build directory, you will find a folder called **bin**, all generated 
 ### Log
 Log will be saved on the same dir as the *exe* file, it is named with current running executable name, like "talker.exe.log.INFO.20200224-150237.7724"
 
+### Working examples
+The examples are located at **src/examples** folder.
+Two working examples are ready to be built and run. **Talker** is the node that send message:
+```C++
+#include "cyber/cyber.h"
+#include "examples/proto/examples.pb.h"
+#include "cyber/time/rate.h"
+#include "cyber/time/time.h"
+
+using apollo::cyber::Rate;
+using apollo::cyber::Time;
+using apollo::cyber::examples::proto::Chatter;
+
+int main(int argc, char *argv[]) 
+{
+  // init cyber framework
+  apollo::cyber::Init(argv[0]);
+
+  // create talker node
+  auto talker_node = apollo::cyber::CreateNode("talker");
+  // create talker
+  auto talker = talker_node->CreateWriter<Chatter>("channel/chatter");
+  Rate rate(1.0);
+
+  while (apollo::cyber::OK()) {
+    static uint64_t seq = 0;
+    auto msg = std::make_shared<Chatter>();
+    msg->set_timestamp(Time::Now().ToNanosecond());
+    msg->set_lidar_timestamp(Time::Now().ToNanosecond());
+    msg->set_seq(seq++);
+    msg->set_content("Hello, apollo!");
+    talker->Write(msg);
+    AINFO << "talker sent a message!";
+    rate.Sleep();
+  }
+  return 0;
+}
+```
+
+The **Listener** receives message:
+```C++
+#include "cyber/cyber.h"
+#include "examples/proto/examples.pb.h"
+
+void MessageCallback(
+    const std::shared_ptr<apollo::cyber::examples::proto::Chatter>& msg) {
+  AINFO << "Received message seq-> " << msg->seq();
+  AINFO << "msgcontent->" << msg->content();
+}
+
+int main(int argc, char* argv[]) {
+  // init cyber framework
+  apollo::cyber::Init(argv[0]);
+  // create listener node
+  auto listener_node = apollo::cyber::CreateNode("listener");
+  // create listener
+  auto listener =
+      listener_node->CreateReader<apollo::cyber::examples::proto::Chatter>(
+          "channel/chatter", MessageCallback);
+  apollo::cyber::WaitForShutdown();
+  return 0;
+}
+```
+
 
 ## Copyright
 * The license belongs to the original Apollo Team [https://github.com/ApolloAuto/apollo](https://github.com/ApolloAuto/apollo)
