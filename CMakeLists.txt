@@ -10,7 +10,11 @@ endif(WIN32)
 include_directories("${PROJECT_SOURCE_DIR}/cyber/proto")
 include_directories("${PROJECT_SOURCE_DIR}")
 
+# 
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
+# output
 set(CYBER_LIB "cyber")
 
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/bin")

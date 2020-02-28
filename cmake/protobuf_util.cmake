@@ -38,8 +38,13 @@ function(gen_proto_src FOLDER_NAME)
         # message("!!! PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
         # message("!!! GENERATED_FILE_PATH: ${GENERATED_FILE_PATH}")
 
-        if(${PROTO_NATIVE_PATH} IS_NEWER_THAN ${GENERATED_FILE_PATH})
+        if(${PROTO_NATIVE_PATH} IS_NEWER_THAN ${GENERATED_FILE_PATH}) 
             # message("+++++++++++++++++ ${GENERATED_FILE_PATH}")
+            # message("       PROTOBUF_PROTOC_EXECUTABLE: ${PROTOBUF_PROTOC_EXECUTABLE}")
+            # message("       PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+            # message("       CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+            # message("       PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
+
             EXECUTE_PROCESS(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROJECT_SOURCE_DIR} --cpp_out=${CMAKE_CURRENT_SOURCE_DIR} ${PROTO_NATIVE_PATH}
             RESULT_VARIABLE rv)
 

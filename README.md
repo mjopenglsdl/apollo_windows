@@ -49,6 +49,12 @@ Under the build directory, you will find a folder called **bin**, all generated 
 ### Log
 Log will be saved on the same dir as the *exe* file, it is named with current running executable name, like "talker.exe.log.INFO.20200224-150237.7724"
 
+### Configurations
+Add environment variable **CYBER_PATH** to *.bachrc*.
+```bash
+export CYBER_PATH=~/git_repo/apollo_windows
+```
+
 ### Working examples
 The examples are located at **src/examples** folder.
 Two working examples are ready to be built and run. **Talker** is the node that send message:
@@ -99,11 +105,14 @@ void MessageCallback(
   AINFO << "msgcontent->" << msg->content();
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
   // init cyber framework
   apollo::cyber::Init(argv[0]);
+
   // create listener node
   auto listener_node = apollo::cyber::CreateNode("listener");
+  
   // create listener
   auto listener =
       listener_node->CreateReader<apollo::cyber::examples::proto::Chatter>(

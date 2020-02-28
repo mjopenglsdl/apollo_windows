@@ -2,6 +2,7 @@
 add_subdirectory(proto)
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/proto")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/proto/src")
 
 file(GLOB_RECURSE PROTO_SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/proto/*.cc")
 
