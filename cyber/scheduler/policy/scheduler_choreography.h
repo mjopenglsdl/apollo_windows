@@ -40,7 +40,7 @@ class SchedulerChoreography : public Scheduler {
   bool DispatchTask(const std::shared_ptr<CRoutine>&) override;
 
  private:
-  friend Scheduler* Instance();
+  CYBER_API friend Scheduler* Instance();
   SchedulerChoreography();
 
   void CreateProcessor();

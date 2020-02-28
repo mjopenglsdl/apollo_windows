@@ -36,7 +36,7 @@ namespace transport {
 class Participant;
 using ParticipantPtr = std::shared_ptr<Participant>;
 
-class Participant {
+class CYBER_API Participant {
  public:
   Participant(const std::string& name, int send_port,
               eprosima::fastrtps::ParticipantListener* listener = nullptr);

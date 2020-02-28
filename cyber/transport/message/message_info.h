@@ -27,7 +27,7 @@ namespace apollo {
 namespace cyber {
 namespace transport {
 
-class MessageInfo {
+class CYBER_API MessageInfo {
  public:
   MessageInfo();
   MessageInfo(const Identity& sender_id, uint64_t seq_num);

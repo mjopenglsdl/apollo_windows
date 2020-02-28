@@ -37,8 +37,8 @@
 
 back/*
 
-cyber/proto/cyber/*
-examples/proto/examples/proto/*
+# cyber/proto/cyber/*
+src/examples/proto/src/**
 
 build/*
 

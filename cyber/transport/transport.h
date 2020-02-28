@@ -40,13 +40,17 @@
 #include "cyber/transport/transmitter/shm_transmitter.h"
 #include "cyber/transport/transmitter/transmitter.h"
 
+#include <iostream>
+using namespace std;
+
+
 namespace apollo {
 namespace cyber {
 namespace transport {
 
 using apollo::cyber::proto::OptionalMode;
 
-class Transport {
+class CYBER_API Transport {
  public:
   virtual ~Transport();
 
@@ -93,6 +97,7 @@ auto Transport::CreateTransmitter(const RoleAttributes& attr,
     modified_attr.mutable_qos_profile()->CopyFrom(
         QosProfileConf::QOS_PROFILE_DEFAULT);
   }
+      cout<<"mode: "<<mode<<endl;
 
   switch (mode) {
     case OptionalMode::INTRA:

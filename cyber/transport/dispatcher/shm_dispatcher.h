@@ -42,7 +42,7 @@ using apollo::cyber::base::AtomicRWLock;
 using apollo::cyber::base::ReadLockGuard;
 using apollo::cyber::base::WriteLockGuard;
 
-class ShmDispatcher : public Dispatcher {
+class CYBER_API ShmDispatcher : public Dispatcher {
  public:
   // key: channel_id
   using SegmentContainer = std::unordered_map<uint64_t, SegmentPtr>;

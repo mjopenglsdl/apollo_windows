@@ -25,7 +25,7 @@ namespace transport {
 
 class SegmentFactory {
  public:
-  static SegmentPtr CreateSegment(uint64_t channel_id);
+  CYBER_API static SegmentPtr CreateSegment(uint64_t channel_id);
 };
 
 }  // namespace transport

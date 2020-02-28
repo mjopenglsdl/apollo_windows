@@ -23,7 +23,7 @@
 namespace apollo {
 namespace cyber {
 
-bool Init(const char* binary_name);
+CYBER_API bool Init(const char* binary_name);
 void Clear();
 
 }  // namespace cyber

@@ -34,11 +34,12 @@ int main(int argc, char *argv[])
 
   // create talker node
   auto talker_node = apollo::cyber::CreateNode("talker");
+
   // create talker
   auto talker = talker_node->CreateWriter<Chatter>("channel/chatter");
   Rate rate(1.0);
 
-  AINFO << "000000000000000000!";
+  AINFO << "Talker has been initialized !";
 
   while (apollo::cyber::OK()) {
     static uint64_t seq = 0;
@@ -48,8 +49,9 @@ int main(int argc, char *argv[])
     msg->set_seq(seq++);
     msg->set_content("Hello, apollo!");
     talker->Write(msg);
-    AINFO << "talker sent a message!";
+    AINFO << "talker sent a message, seq: "<<seq;
     rate.Sleep();
   }
+
   return 0;
 }

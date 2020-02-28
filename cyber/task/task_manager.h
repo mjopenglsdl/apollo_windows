@@ -31,7 +31,7 @@
 namespace apollo {
 namespace cyber {
 
-class TaskManager {
+class CYBER_API TaskManager {
  public:
   virtual ~TaskManager();
 

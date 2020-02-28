@@ -29,6 +29,9 @@
 #include "google/protobuf/dynamic_message.h"
 #include "google/protobuf/io/tokenizer.h"
 
+#include <cyber/platform.h>
+
+
 namespace apollo {
 namespace cyber {
 namespace message {
@@ -52,7 +55,7 @@ class ErrorCollector : public google::protobuf::DescriptorPool::ErrorCollector {
                   ErrorLocation location, const std::string& message) override;
 };
 
-class ProtobufFactory {
+class CYBER_API ProtobufFactory {
  public:
   ~ProtobufFactory();
 

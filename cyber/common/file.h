@@ -115,7 +115,7 @@ bool GetContent(const std::string &file_name, std::string *content);
  * @brief Get absolute path by concatenating prefix and relative_path.
  * @return The absolute path.
  */
-std::string GetAbsolutePath(const std::string &prefix,
+std::string CYBER_API GetAbsolutePath(const std::string &prefix,
                             const std::string &relative_path);
 
 /**

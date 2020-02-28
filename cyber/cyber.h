@@ -32,7 +32,7 @@
 namespace apollo {
 namespace cyber {
 
-std::unique_ptr<Node> CreateNode(const std::string& node_name,
+CYBER_API std::unique_ptr<Node> CreateNode(const std::string& node_name,
                                  const std::string& name_space = "");
 
 }  // namespace cyber

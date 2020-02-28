@@ -23,6 +23,8 @@
 #include "fastrtps/attributes/PublisherAttributes.h"
 #include "fastrtps/attributes/SubscriberAttributes.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace transport {
@@ -32,7 +34,7 @@ using proto::QosHistoryPolicy;
 using proto::QosProfile;
 using proto::QosReliabilityPolicy;
 
-class AttributesFiller {
+class CYBER_API AttributesFiller {
  public:
   AttributesFiller();
   virtual ~AttributesFiller();

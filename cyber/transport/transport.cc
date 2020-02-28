@@ -26,7 +26,7 @@ Transport::Transport() {
   CreateParticipant();
   notifier_ = NotifierFactory::CreateNotifier();
   intra_dispatcher_ = IntraDispatcher::Instance();
-  shm_dispatcher_ = ShmDispatcher::Instance();
+  // shm_dispatcher_ = ShmDispatcher::Instance();
   rtps_dispatcher_ = RtpsDispatcher::Instance();
   rtps_dispatcher_->set_participant(participant_);
 }
@@ -39,7 +39,7 @@ void Transport::Shutdown() {
   }
 
   intra_dispatcher_->Shutdown();
-  shm_dispatcher_->Shutdown();
+  // shm_dispatcher_->Shutdown();
   rtps_dispatcher_->Shutdown();
   notifier_->Shutdown();
 

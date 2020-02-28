@@ -29,6 +29,8 @@
 #include "cyber/service_discovery/role/role.h"
 #include "cyber/service_discovery/specific_manager/manager.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace service_discovery {
@@ -39,7 +41,7 @@ class TopologyManager;
  * @class ChannelManager
  * @brief Topology Manager of Service related
  */
-class ChannelManager : public Manager {
+class CYBER_API ChannelManager : public Manager {
   friend class TopologyManager;
 
  public:

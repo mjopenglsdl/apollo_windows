@@ -45,7 +45,7 @@ struct Subscriber {
 class RtpsDispatcher;
 using RtpsDispatcherPtr = RtpsDispatcher*;
 
-class RtpsDispatcher : public Dispatcher {
+class CYBER_API RtpsDispatcher : public Dispatcher {
  public:
   virtual ~RtpsDispatcher();
 
@@ -85,6 +85,8 @@ void RtpsDispatcher::AddListener(const RoleAttributes& self_attr,
                               const std::shared_ptr<std::string>& msg_str,
                               const MessageInfo& msg_info) {
     auto msg = std::make_shared<MessageT>();
+    
+    AINFO<<"0 RtpsDispatcher::AddListener(): "<<*msg_str;
     RETURN_IF(!message::ParseFromString(*msg_str, msg.get()));
     listener(msg, msg_info);
   };
@@ -101,6 +103,7 @@ void RtpsDispatcher::AddListener(const RoleAttributes& self_attr,
                               const std::shared_ptr<std::string>& msg_str,
                               const MessageInfo& msg_info) {
     auto msg = std::make_shared<MessageT>();
+    AINFO<<"1 RtpsDispatcher::AddListener(): "<<msg_str;
     RETURN_IF(!message::ParseFromString(*msg_str, msg.get()));
     listener(msg, msg_info);
   };

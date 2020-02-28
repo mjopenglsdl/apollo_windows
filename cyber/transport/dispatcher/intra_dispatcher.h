@@ -248,7 +248,7 @@ class ChannelChain {
   base::AtomicRWLock oppo_rw_lock_;
 };
 
-class IntraDispatcher : public Dispatcher {
+class CYBER_API IntraDispatcher : public Dispatcher {
  public:
   virtual ~IntraDispatcher();
 

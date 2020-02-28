@@ -23,6 +23,8 @@
 #include <utility>
 #include <vector>
 
+#include <cyber/platform.h>
+
 #if defined(_WIN32)
 #if defined(EPROSIMA_USER_DLL_EXPORT)
 #define ePcyberima_user_DllExport __declspec(dllexport)
@@ -62,7 +64,7 @@ namespace transport {
  * user in the IDL file.
  * @ingroup UnderlayMessage
  */
-class UnderlayMessage {
+class CYBER_API UnderlayMessage {
  public:
   /*!
    * @brief Default constructor.

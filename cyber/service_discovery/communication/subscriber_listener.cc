@@ -20,6 +20,10 @@
 #include "cyber/transport/rtps/underlay_message.h"
 #include "cyber/transport/rtps/underlay_message_type.h"
 
+#include <iostream>
+using namespace std;
+
+
 namespace apollo {
 namespace cyber {
 namespace service_discovery {
@@ -38,9 +42,20 @@ void SubscriberListener::onNewDataMessage(eprosima::fastrtps::Subscriber* sub) {
   std::lock_guard<std::mutex> lock(mutex_);
   eprosima::fastrtps::SampleInfo_t m_info;
   cyber::transport::UnderlayMessage m;
+  
   RETURN_IF(!sub->takeNextData(reinterpret_cast<void*>(&m), &m_info));
   RETURN_IF(m_info.sampleKind != eprosima::fastrtps::ALIVE);
 
+  cout<<"m_info.sampleKind: "<<m_info.sampleKind<<"|" <<endl;
+  cout<<"m_info.ownershipStrength: "<<m_info.ownershipStrength<<"|" <<endl;
+  cout<<"m_info.sourceTimestamp: "<<m_info.sourceTimestamp<<"|" <<endl;
+  cout<<"m_info.iHandle: "<<m_info.iHandle<<"|" <<endl;
+
+  cout<<"-------------------"<<endl;
+
+  cout<<"m.seq: "<<m.seq()<<"|" <<endl;
+  cout<<"m.data: "<<m.data()<<"|" <<endl;
+  cout<<"m.datatype: "<<m.datatype()<<"|" <<endl;
   callback_(m.data());
 }
 

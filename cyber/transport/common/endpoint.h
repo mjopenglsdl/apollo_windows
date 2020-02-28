@@ -31,7 +31,7 @@ using EndpointPtr = std::shared_ptr<Endpoint>;
 
 using proto::RoleAttributes;
 
-class Endpoint {
+class CYBER_API Endpoint {
  public:
   explicit Endpoint(const RoleAttributes& attr);
   virtual ~Endpoint();

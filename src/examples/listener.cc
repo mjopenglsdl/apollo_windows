@@ -17,17 +17,31 @@
 #include "cyber/cyber.h"
 #include "examples/proto/examples.pb.h"
 
+#include <thread>
+
+#include <iostream>
+using namespace std;
+
+
 void MessageCallback(
     const std::shared_ptr<apollo::cyber::examples::proto::Chatter>& msg) {
   AINFO << "Received message seq-> " << msg->seq();
   AINFO << "msgcontent->" << msg->content();
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
   // init cyber framework
   apollo::cyber::Init(argv[0]);
+
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+ 
+  cout<<"!!!!!!! module: "<<apollo::cyber::Binary::GetName().c_str()<<endl;
+  AINFO << "Listener has been initialized !";
+
   // create listener node
   auto listener_node = apollo::cyber::CreateNode("listener");
+
   // create listener
   auto listener =
       listener_node->CreateReader<apollo::cyber::examples::proto::Chatter>(

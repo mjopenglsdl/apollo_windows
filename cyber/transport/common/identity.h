@@ -21,13 +21,16 @@
 #include <cstring>
 #include <string>
 
+#include <cyber/platform.h>
+
+
 namespace apollo {
 namespace cyber {
 namespace transport {
 
 const uint8_t ID_SIZE = 8;
 
-class Identity {
+class CYBER_API Identity {
  public:
   explicit Identity(bool need_generate = true);
   Identity(const Identity& another);

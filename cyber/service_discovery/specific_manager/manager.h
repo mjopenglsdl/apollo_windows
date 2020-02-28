@@ -48,7 +48,7 @@ using proto::RoleType;
  * @brief Base class for management of Topology elements.
  * Manager can Join/Leave the Topology, and Listen the topology change
  */
-class Manager {
+class CYBER_API Manager {
  public:
   using ChangeSignal = base::Signal<const ChangeMsg&>;
   using ChangeFunc = std::function<void(const ChangeMsg&)>;

@@ -19,16 +19,15 @@
 
 #include <string>
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 class Binary {
  public:
-  static std::string GetName() { return GetNameRef(); }
-  static void SetName(const std::string& name) { GetNameRef() = name; }
-  static std::string& GetNameRef() {
-    static std::string binary_name;
-    return binary_name;
-  }
+  CYBER_API static std::string GetName();
+  CYBER_API static void SetName(const std::string& name);
+  CYBER_API static std::string& GetNameRef();
 };
 }  // namespace cyber
 }  // namespace apollo

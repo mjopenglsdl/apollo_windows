@@ -22,13 +22,15 @@
 
 #include "cyber/time/duration.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 
 /**
  * @brief Cyber has builtin time type Time.
  */
-class Time {
+class CYBER_API Time {
  public:
   static const Time MAX;
   static const Time MIN;
@@ -45,15 +47,15 @@ class Time {
    *
    * @return return the current time.
    */
-  static Time Now();
-  static Time MonoTime();
+  CYBER_API static Time Now();
+  CYBER_API static Time MonoTime();
 
   /**
    * @brief Sleep Until time.
    *
    * @param time the Time object.
    */
-  static void SleepUntil(const Time& time);
+  CYBER_API static void SleepUntil(const Time& time);
 
   /**
    * @brief convert time to second.

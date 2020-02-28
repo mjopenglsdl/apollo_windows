@@ -53,7 +53,7 @@ using apollo::cyber::proto::InnerThread;
 class Processor;
 class ProcessorContext;
 
-class Scheduler {
+class CYBER_API Scheduler {
  public:
   virtual ~Scheduler() {}
   static Scheduler* Instance();

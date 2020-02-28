@@ -32,7 +32,7 @@ namespace apollo {
 namespace cyber {
 namespace event {
 
-class PerfEventCache {
+class CYBER_API PerfEventCache {
  public:
   using EventBasePtr = std::shared_ptr<EventBase>;
 

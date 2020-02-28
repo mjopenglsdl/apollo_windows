@@ -22,6 +22,9 @@
 #include <memory>
 #include <string>
 
+#include <cyber/platform.h>
+
+
 namespace apollo {
 namespace cyber {
 namespace transport {
@@ -29,7 +32,7 @@ namespace transport {
 class ReadableInfo;
 using ReadableInfoPtr = std::shared_ptr<ReadableInfo>;
 
-class ReadableInfo {
+class CYBER_API ReadableInfo {
  public:
   ReadableInfo();
   ReadableInfo(uint64_t host_id, uint32_t block_index, uint64_t channel_id);

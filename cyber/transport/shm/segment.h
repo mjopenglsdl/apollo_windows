@@ -26,6 +26,8 @@
 #include "cyber/transport/shm/shm_conf.h"
 #include "cyber/transport/shm/state.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace transport {
@@ -40,7 +42,7 @@ struct WritableBlock {
 };
 using ReadableBlock = WritableBlock;
 
-class Segment {
+class CYBER_API Segment {
  public:
   explicit Segment(uint64_t channel_id);
   virtual ~Segment() {}

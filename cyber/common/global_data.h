@@ -34,7 +34,7 @@ namespace common {
 using ::apollo::cyber::base::AtomicHashMap;
 using ::apollo::cyber::proto::CyberConfig;
 
-class GlobalData {
+class CYBER_API GlobalData {
  public:
   ~GlobalData();
 

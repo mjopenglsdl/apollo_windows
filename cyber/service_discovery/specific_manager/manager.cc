@@ -197,7 +197,11 @@ void Manager::Convert(const RoleAttributes& attr, RoleType role,
   }
 }
 
-void Manager::Notify(const ChangeMsg& msg) { signal_(msg); }
+void Manager::Notify(const ChangeMsg& msg) 
+{ 
+  cout<<"Notify() !!"<<endl;
+  signal_(msg); 
+}
 
 void Manager::OnRemoteChange(const std::string& msg_str) {
   if (is_shutdown_.load()) {
@@ -206,6 +210,9 @@ void Manager::OnRemoteChange(const std::string& msg_str) {
   }
 
   ChangeMsg msg;
+
+  AINFO<<"000  Manager::OnRemoteChange(): "<<msg_str;
+
   RETURN_IF(!message::ParseFromString(msg_str, &msg));
   if (IsFromSameProcess(msg)) {
     return;

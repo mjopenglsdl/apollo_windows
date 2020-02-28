@@ -31,6 +31,8 @@
 #include "cyber/service_discovery/specific_manager/service_manager.h"
 #include "cyber/transport/rtps/participant.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace service_discovery {
@@ -60,7 +62,7 @@ using ServiceManagerPtr = std::shared_ptr<ServiceManager>;
  * messages of those elements. Also, you can register you own `ChangeFunc` to
  * monitor topology change
  */
-class TopologyManager {
+class CYBER_API TopologyManager {
  public:
   using ChangeSignal = base::Signal<const ChangeMsg&>;
   using ChangeFunc = std::function<void(const ChangeMsg&)>;

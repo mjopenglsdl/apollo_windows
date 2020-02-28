@@ -24,11 +24,13 @@
 
 #include "cyber/blocker/blocker.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace blocker {
 
-class BlockerManager {
+class CYBER_API BlockerManager {
  public:
   using BlockerMap =
       std::unordered_map<std::string, std::shared_ptr<BlockerBase>>;

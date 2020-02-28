@@ -25,7 +25,7 @@ namespace apollo {
 namespace cyber {
 namespace transport {
 
-class NotifierFactory {
+class CYBER_API NotifierFactory {
  public:
   static NotifierPtr CreateNotifier();
 

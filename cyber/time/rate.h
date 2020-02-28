@@ -23,7 +23,7 @@
 namespace apollo {
 namespace cyber {
 
-class Rate {
+class CYBER_API Rate {
  public:
   explicit Rate(double frequency);
   explicit Rate(uint64_t nanoseconds);

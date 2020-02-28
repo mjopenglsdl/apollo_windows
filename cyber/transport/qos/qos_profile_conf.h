@@ -21,6 +21,8 @@
 
 #include "cyber/proto/qos_profile.pb.h"
 
+#include <cyber/platform.h>
+
 namespace apollo {
 namespace cyber {
 namespace transport {
@@ -30,7 +32,7 @@ using cyber::proto::QosHistoryPolicy;
 using cyber::proto::QosProfile;
 using cyber::proto::QosReliabilityPolicy;
 
-class QosProfileConf {
+class CYBER_API QosProfileConf {
  public:
   QosProfileConf();
   virtual ~QosProfileConf();

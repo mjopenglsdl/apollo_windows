@@ -37,7 +37,7 @@ using Duration = std::chrono::microseconds;
 
 enum class RoutineState { READY, FINISHED, SLEEP, IO_WAIT, DATA_WAIT };
 
-class CRoutine {
+class CYBER_API CRoutine {
  public:
   explicit CRoutine(const RoutineFunc &func);
   virtual ~CRoutine();

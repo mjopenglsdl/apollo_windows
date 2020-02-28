@@ -26,6 +26,10 @@
 #include "cyber/message/py_message_traits.h"
 #include "cyber/message/raw_message_traits.h"
 
+#include <iostream>
+using namespace std;
+
+
 namespace apollo {
 namespace cyber {
 namespace message {
@@ -158,6 +162,7 @@ ParseFromArray(const void* data, int size, T* message) {
 template <typename T>
 typename std::enable_if<HasParseFromString<T>::value, bool>::type
 ParseFromString(const std::string& str, T* message) {
+  // cout<<"000"<<str<<", typeid: "<<typeid(message).name()<<endl;
   return message->ParseFromString(str);
 }
 

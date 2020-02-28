@@ -29,7 +29,7 @@ namespace apollo {
 namespace cyber {
 namespace scheduler {
 
-Scheduler* Instance();
+CYBER_API Scheduler* Instance();
 void CleanUp();
 
 }  // namespace scheduler
