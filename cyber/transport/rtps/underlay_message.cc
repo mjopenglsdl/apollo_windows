@@ -24,6 +24,7 @@
 
 #include "fastcdr/Cdr.h"
 #include "fastcdr/exceptions/BadParamException.h"
+// #include <cyber/common/log.h>
 
 #ifdef _WIN32
 // Remove linker warning LNK4221 on Visual Studio
@@ -121,6 +122,14 @@ void UnderlayMessage::serialize(eprosima::fastcdr::Cdr& scdr) const {
 
   scdr << m_data;
   scdr << m_datatype;
+
+  // AINFO<<"------------------- BEFORE : "<<m_data;
+  // AINFO<<"    m_timestamp: "<<m_timestamp;
+  // AINFO<<"    m_seq: "<<m_seq;
+  // AINFO<<"    m_data: "<<m_data;
+  // AINFO<<"    m_datatype: "<<m_datatype;
+  // AINFO<<"    getBufferPointer(): "<<scdr.getBufferPointer();
+  // AINFO<<"    getSerializedDataLength(): "<<scdr.getSerializedDataLength();
 }
 
 void UnderlayMessage::deserialize(eprosima::fastcdr::Cdr& dcdr) {
@@ -128,6 +137,13 @@ void UnderlayMessage::deserialize(eprosima::fastcdr::Cdr& dcdr) {
   dcdr >> m_seq;
   dcdr >> m_data;
   dcdr >> m_datatype;
+  // AINFO<<"------------------ AFTER : "<<m_data;
+  // AINFO<<"    m_timestamp: "<<m_timestamp;
+  // AINFO<<"    m_seq: "<<m_seq;
+  // AINFO<<"    m_data: "<<m_data;
+  // AINFO<<"    m_datatype: "<<m_datatype;
+  // AINFO<<"    getBufferPointer(): "<<dcdr.getBufferPointer();
+  // AINFO<<"    getSerializedDataLength(): "<<dcdr.getSerializedDataLength();
 }
 
 size_t UnderlayMessage::getKeyMaxCdrSerializedSize(size_t current_alignment) {

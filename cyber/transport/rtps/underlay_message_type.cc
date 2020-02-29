@@ -25,6 +25,7 @@
 #include "fastcdr/FastBuffer.h"
 
 #include "cyber/common/log.h"
+// #include <iomanip>
 
 namespace apollo {
 namespace cyber {
@@ -70,6 +71,16 @@ bool UnderlayMessageType::deserialize( eprosima::fastrtps::rtps::SerializedPaylo
                                       void* data) {
   UnderlayMessage* p_type = reinterpret_cast<UnderlayMessage*>(
       data);  // Convert DATA to pointer of your type
+
+    // AINFO<<"payload->length: "<<payload->length;
+    // AINFO<<"payload->max_size: "<<payload->max_size;
+
+    // uint8_t *c_data = static_cast<uint8_t *>(payload->data);
+    // for (size_t i = 0; i < 40; i++)
+    // {
+    //   AINFO<<std::hex<<std::setw(2)<<(int)c_data[i]<<std::dec;
+    // }
+
   eprosima::fastcdr::FastBuffer fastbuffer(
       reinterpret_cast<char*>(payload->data),
       payload->length);  // Object that manages the raw buffer.

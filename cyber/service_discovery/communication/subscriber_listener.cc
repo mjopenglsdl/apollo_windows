@@ -46,16 +46,19 @@ void SubscriberListener::onNewDataMessage(eprosima::fastrtps::Subscriber* sub) {
   RETURN_IF(!sub->takeNextData(reinterpret_cast<void*>(&m), &m_info));
   RETURN_IF(m_info.sampleKind != eprosima::fastrtps::ALIVE);
 
-  cout<<"m_info.sampleKind: "<<m_info.sampleKind<<"|" <<endl;
-  cout<<"m_info.ownershipStrength: "<<m_info.ownershipStrength<<"|" <<endl;
-  cout<<"m_info.sourceTimestamp: "<<m_info.sourceTimestamp<<"|" <<endl;
-  cout<<"m_info.iHandle: "<<m_info.iHandle<<"|" <<endl;
+  // cout<<"m_info.sampleKind: "<<m_info.sampleKind<<"|" <<endl;
+  // cout<<"m_info.ownershipStrength: "<<m_info.ownershipStrength<<"|" <<endl;
+  // cout<<"m_info.sourceTimestamp: "<<m_info.sourceTimestamp<<"|" <<endl;
+  // cout<<"m_info.iHandle: "<<m_info.iHandle<<"|" <<endl;
 
-  cout<<"-------------------"<<endl;
+  // cout<<"-------------------"<<endl;
 
-  cout<<"m.seq: "<<m.seq()<<"|" <<endl;
-  cout<<"m.data: "<<m.data()<<"|" <<endl;
-  cout<<"m.datatype: "<<m.datatype()<<"|" <<endl;
+  // cout<<"m.seq: "<<m.seq()<<"|" <<endl;
+  // cout<<"m.data: "<<m.data()<<"|" <<endl;
+  // AINFO<<"RECV m.data(): "<<m.data()<<", length: "<<m.data().length();
+  // AINFO << "     m_datatype: "<<m.datatype()<<", length: "<<m.datatype().length();
+
+  // cout<<"m.datatype: "<<m.datatype()<<"|" <<endl;
   callback_(m.data());
 }
 

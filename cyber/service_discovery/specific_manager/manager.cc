@@ -199,7 +199,7 @@ void Manager::Convert(const RoleAttributes& attr, RoleType role,
 
 void Manager::Notify(const ChangeMsg& msg) 
 { 
-  cout<<"Notify() !!"<<endl;
+  // cout<<"Notify() !!, byte size: "<< msg.ByteSizeLong()<<endl;
   signal_(msg); 
 }
 
@@ -211,8 +211,7 @@ void Manager::OnRemoteChange(const std::string& msg_str) {
 
   ChangeMsg msg;
 
-  AINFO<<"000  Manager::OnRemoteChange(): "<<msg_str;
-
+  // AINFO<<"000  Manager::OnRemoteChange(): "<<msg_str<<", length: "<<msg_str.length();
   RETURN_IF(!message::ParseFromString(msg_str, &msg));
   if (IsFromSameProcess(msg)) {
     return;
@@ -228,10 +227,17 @@ bool Manager::Publish(const ChangeMsg& msg) {
   }
 
   apollo::cyber::transport::UnderlayMessage m;
+
+  // std::string tmp = "";
+  // msg.SerializeToString(&tmp);
+  // AINFO<<"str len: "<< tmp.length();
+
   RETURN_VAL_IF(!message::SerializeToString(msg, &m.data()), false);
   {
     std::lock_guard<std::mutex> lg(lock_);
     if (publisher_ != nullptr) {
+        // AINFO << "SEND DATA: "<<m.data()<<", length: "<<m.data().length();
+        // AINFO << "     datatype: "<<m.datatype()<<", length: "<<m.datatype().length();
       return publisher_->write(reinterpret_cast<void*>(&m));
     }
   }
