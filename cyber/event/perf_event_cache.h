@@ -64,7 +64,7 @@ class CYBER_API PerfEventCache {
   const int kFlushSize = 512;
   const uint64_t kEventQueueSize = 8192;
 
-  DECLARE_SINGLETON(PerfEventCache)
+  DECLARE_SINGLETON_DLL(PerfEventCache)
 };
 
 }  // namespace event

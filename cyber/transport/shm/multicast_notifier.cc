@@ -34,6 +34,8 @@ namespace transport {
 
 using common::GlobalData;
 
+IMPLE_SINGLETON_DLL(MulticastNotifier)
+
 MulticastNotifier::MulticastNotifier() {
   if (!Init()) {
     Shutdown();

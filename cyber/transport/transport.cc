@@ -22,6 +22,8 @@ namespace apollo {
 namespace cyber {
 namespace transport {
 
+IMPLE_SINGLETON_DLL(Transport)
+
 Transport::Transport() {
   CreateParticipant();
   notifier_ = NotifierFactory::CreateNotifier();

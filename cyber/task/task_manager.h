@@ -59,7 +59,7 @@ class CYBER_API TaskManager {
   std::atomic<bool> stop_ = {false};
   std::vector<uint64_t> tasks_;
   std::shared_ptr<base::BoundedQueue<std::function<void()>>> task_queue_;
-  DECLARE_SINGLETON(TaskManager);
+  DECLARE_SINGLETON_DLL(TaskManager);
 };
 
 }  // namespace cyber

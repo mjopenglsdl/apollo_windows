@@ -104,7 +104,7 @@ class CYBER_API GlobalData {
   static AtomicHashMap<uint64_t, std::string, 256> service_id_map_;
   static AtomicHashMap<uint64_t, std::string, 256> task_id_map_;
 
-  DECLARE_SINGLETON(GlobalData)
+  DECLARE_SINGLETON_DLL(GlobalData)
 };
 
 }  // namespace common

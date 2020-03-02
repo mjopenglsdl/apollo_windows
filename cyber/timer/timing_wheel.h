@@ -39,7 +39,7 @@ static const uint64_t TIMER_RESOLUTION_MS = 2;
 static const uint64_t TIMER_MAX_INTERVAL_MS =
     WORK_WHEEL_SIZE * ASSISTANT_WHEEL_SIZE * TIMER_RESOLUTION_MS;
 
-class TimingWheel {
+class CYBER_API TimingWheel {
  public:
   ~TimingWheel() {
     if (running_) {
@@ -83,7 +83,7 @@ class TimingWheel {
   std::mutex current_assistant_wheel_index_mutex_;
   std::thread tick_thread_;
 
-  DECLARE_SINGLETON(TimingWheel)
+  DECLARE_SINGLETON_DLL(TimingWheel)
 };
 
 }  // namespace cyber

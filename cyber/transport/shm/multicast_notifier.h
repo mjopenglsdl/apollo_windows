@@ -47,7 +47,7 @@ class MulticastNotifier : public NotifierBase {
 
   std::atomic<bool> is_shutdown_ = {false};
 
-  DECLARE_SINGLETON(MulticastNotifier)
+  DECLARE_SINGLETON_DLL(MulticastNotifier)
 };
 
 }  // namespace transport

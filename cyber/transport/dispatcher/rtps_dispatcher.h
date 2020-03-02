@@ -75,7 +75,7 @@ class CYBER_API RtpsDispatcher : public Dispatcher {
 
   ParticipantPtr participant_;
 
-  DECLARE_SINGLETON(RtpsDispatcher)
+  DECLARE_SINGLETON_DLL(RtpsDispatcher)
 };
 
 template <typename MessageT>

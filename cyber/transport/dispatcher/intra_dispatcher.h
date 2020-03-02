@@ -272,7 +272,7 @@ class CYBER_API IntraDispatcher : public Dispatcher {
   void RemoveListener(const RoleAttributes& self_attr,
                       const RoleAttributes& opposite_attr);
 
-  DECLARE_SINGLETON(IntraDispatcher)
+  DECLARE_SINGLETON_DLL(IntraDispatcher)
 
  private:
   template <typename MessageT>

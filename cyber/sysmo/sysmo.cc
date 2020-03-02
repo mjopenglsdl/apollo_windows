@@ -23,6 +23,8 @@ namespace cyber {
 
 using apollo::cyber::common::GetEnv;
 
+IMPLE_SINGLETON_DLL(SysMo)
+
 SysMo::SysMo() { Start(); }
 
 void SysMo::Start() {

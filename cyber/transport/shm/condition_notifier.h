@@ -60,7 +60,7 @@ class ConditionNotifier : public NotifierBase {
   uint64_t next_seq_ = 0;
   std::atomic<bool> is_shutdown_ = {false};
 
-  DECLARE_SINGLETON(ConditionNotifier)
+  DECLARE_SINGLETON_DLL(ConditionNotifier)
 };
 
 }  // namespace transport

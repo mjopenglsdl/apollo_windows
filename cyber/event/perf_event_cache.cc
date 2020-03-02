@@ -31,6 +31,8 @@ using common::GlobalData;
 using proto::PerfConf;
 using proto::PerfType;
 
+IMPLE_SINGLETON_DLL(PerfEventCache)
+
 PerfEventCache::PerfEventCache() {
   auto& global_conf = GlobalData::Instance()->Config();
   if (global_conf.has_perf_conf()) {

@@ -24,6 +24,8 @@ namespace apollo {
 namespace cyber {
 namespace transport {
 
+IMPLE_SINGLETON_DLL(ShmDispatcher)
+
 using common::GlobalData;
 
 ShmDispatcher::ShmDispatcher() : host_id_(0) { Init(); }
@@ -145,10 +147,10 @@ void ShmDispatcher::ThreadFunc() {
 }
 
 bool ShmDispatcher::Init() {
-  host_id_ = common::Hash(GlobalData::Instance()->HostIp());
-  notifier_ = NotifierFactory::CreateNotifier();
-  thread_ = std::thread(&ShmDispatcher::ThreadFunc, this);
-  scheduler::Instance()->SetInnerThreadAttr("shm_disp", &thread_);
+  // host_id_ = common::Hash(GlobalData::Instance()->HostIp());
+  // notifier_ = NotifierFactory::CreateNotifier();
+  // thread_ = std::thread(&ShmDispatcher::ThreadFunc, this);
+  // scheduler::Instance()->SetInnerThreadAttr("shm_disp", &thread_);
   return true;
 }
 

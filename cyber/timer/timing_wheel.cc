@@ -20,6 +20,8 @@
 namespace apollo {
 namespace cyber {
 
+IMPLE_SINGLETON_DLL(TimingWheel)
+
 void TimingWheel::Start() {
   std::lock_guard<std::mutex> lock(running_mutex_);
   if (!running_) {

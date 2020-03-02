@@ -23,6 +23,8 @@ namespace message {
 
 using google::protobuf::MessageFactory;
 
+IMPLE_SINGLETON_DLL(ProtobufFactory)
+
 ProtobufFactory::ProtobufFactory() {
   pool_.reset(new DescriptorPool());
   factory_.reset(new DynamicMessageFactory(pool_.get()));

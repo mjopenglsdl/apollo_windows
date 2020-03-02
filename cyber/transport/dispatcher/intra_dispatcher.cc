@@ -20,6 +20,8 @@ namespace apollo {
 namespace cyber {
 namespace transport {
 
+IMPLE_SINGLETON_DLL(IntraDispatcher)
+
 IntraDispatcher::IntraDispatcher() { chain_.reset(new ChannelChain()); }
 
 IntraDispatcher::~IntraDispatcher() {}

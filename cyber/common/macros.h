@@ -72,4 +72,35 @@ typename std::enable_if<!HasShutdown<T>::value>::type CallShutdown(
   classname();                                                            \
   DISALLOW_COPY_AND_ASSIGN(classname)
 
+
+#define DECLARE_SINGLETON_DLL(classname)                                      \
+ public:                                                                  \
+  CYBER_API static classname *Instance(bool create_if_needed = true);     \
+                                                                          \
+  CYBER_API static void CleanUp();                                        \
+                                                                          \
+ private:                                                                 \
+  classname();                                                            \
+  DISALLOW_COPY_AND_ASSIGN(classname)
+
+
+// put this to source file
+#define IMPLE_SINGLETON_DLL(classname)                                        \
+  classname *classname::Instance(bool create_if_needed) {                 \
+    static classname *instance = nullptr;                                 \
+    if (!instance && create_if_needed) {                                  \
+      static std::once_flag flag;                                         \
+      std::call_once(flag,                                                \
+                     [&] { instance = new (std::nothrow) classname(); }); \
+    }                                                                     \
+    return instance;                                                      \
+  }                                                                       \
+                                                                          \
+  void classname::CleanUp() {                                             \
+    auto instance = Instance(false);                                      \
+    if (instance != nullptr) {                                            \
+      CallShutdown(instance);                                             \
+    }                                                                     \
+  }
+
 #endif  // CYBER_COMMON_MACROS_H_

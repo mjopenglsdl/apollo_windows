@@ -53,7 +53,7 @@ class DataNotifier {
   std::mutex notifies_map_mutex_;
   AtomicHashMap<uint64_t, NotifyVector> notifies_map_;
 
-  DECLARE_SINGLETON(DataNotifier)
+  DECLARE_SINGLETON_DLL(DataNotifier)
 };
 
 inline DataNotifier::DataNotifier() {}

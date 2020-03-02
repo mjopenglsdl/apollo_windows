@@ -47,7 +47,7 @@ class SysMo {
   std::mutex lk_;
   std::thread sysmo_;
 
-  DECLARE_SINGLETON(SysMo);
+  DECLARE_SINGLETON_DLL(SysMo);
 };
 
 }  // namespace cyber

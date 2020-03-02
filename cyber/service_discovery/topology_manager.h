@@ -131,7 +131,7 @@ class CYBER_API TopologyManager {
                                          ///< connect to `ChangeFunc`s
   PartNameContainer participant_names_;  /// other participant in the topology
 
-  DECLARE_SINGLETON(TopologyManager)
+  DECLARE_SINGLETON_DLL(TopologyManager)
 };
 
 }  // namespace service_discovery

@@ -32,6 +32,8 @@ namespace transport {
 
 using common::Hash;
 
+IMPLE_SINGLETON_DLL(ConditionNotifier)
+
 ConditionNotifier::ConditionNotifier() {
   // key_ = static_cast<key_t>(Hash("/apollo/cyber/transport/shm/notifier"));
   // ADEBUG << "condition notifier key: " << key_;

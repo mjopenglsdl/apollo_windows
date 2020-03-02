@@ -24,6 +24,8 @@ namespace apollo {
 namespace cyber {
 namespace service_discovery {
 
+IMPLE_SINGLETON_DLL(TopologyManager)
+
 TopologyManager::TopologyManager()
     : init_(false),
       node_manager_(nullptr),

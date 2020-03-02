@@ -24,6 +24,8 @@ RtpsDispatcher::RtpsDispatcher() : participant_(nullptr) {}
 
 RtpsDispatcher::~RtpsDispatcher() { Shutdown(); }
 
+IMPLE_SINGLETON_DLL(RtpsDispatcher)
+
 void RtpsDispatcher::Shutdown() {
   if (is_shutdown_.exchange(true)) {
     return;

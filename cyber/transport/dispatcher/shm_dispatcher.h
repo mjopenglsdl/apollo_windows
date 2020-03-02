@@ -75,7 +75,7 @@ class CYBER_API ShmDispatcher : public Dispatcher {
   std::thread thread_;
   NotifierPtr notifier_;
 
-  DECLARE_SINGLETON(ShmDispatcher)
+  DECLARE_SINGLETON_DLL(ShmDispatcher)
 };
 
 template <typename MessageT>

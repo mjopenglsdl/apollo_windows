@@ -27,6 +27,8 @@ namespace cyber {
 using apollo::cyber::common::GlobalData;
 static const char* const task_prefix = "/internal/task";
 
+IMPLE_SINGLETON_DLL(TaskManager)
+
 TaskManager::TaskManager()
     : task_queue_size_(1000),
       task_queue_(new base::BoundedQueue<std::function<void()>>()) {

@@ -79,7 +79,7 @@ class CYBER_API Transport {
   ShmDispatcherPtr shm_dispatcher_ = nullptr;
   RtpsDispatcherPtr rtps_dispatcher_ = nullptr;
 
-  DECLARE_SINGLETON(Transport)
+  DECLARE_SINGLETON_DLL(Transport)
 };
 
 template <typename M>
@@ -97,7 +97,8 @@ auto Transport::CreateTransmitter(const RoleAttributes& attr,
     modified_attr.mutable_qos_profile()->CopyFrom(
         QosProfileConf::QOS_PROFILE_DEFAULT);
   }
-      cout<<"mode: "<<mode<<endl;
+  
+  cout<<"TRANSMITTER mode: "<<mode<<endl;
 
   switch (mode) {
     case OptionalMode::INTRA:
@@ -142,6 +143,8 @@ auto Transport::CreateReceiver(
     modified_attr.mutable_qos_profile()->CopyFrom(
         QosProfileConf::QOS_PROFILE_DEFAULT);
   }
+
+  cout<<"RECEIVER mode: "<<mode<<endl;
 
   switch (mode) {
     case OptionalMode::INTRA:
