@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
  
-  cout<<"!!!!!!! module: "<<apollo::cyber::Binary::GetName().c_str()<<endl;
+  // cout<<"!!!!!!! module: "<<apollo::cyber::Binary::GetName().c_str()<<endl;
   AINFO << "Listener has been initialized !";
 
   // create listener node

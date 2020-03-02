@@ -74,24 +74,24 @@ void SetSchedAffinity(std::thread* thread, const std::vector<int>& cpus,
 
 void SetSchedPolicy(std::thread* thread, std::string spolicy,
                     int sched_priority, pid_t tid) {
-  // struct sched_param sp;
-  // int policy;
+  struct sched_param sp;
+  int policy;
 
-  // memset(reinterpret_cast<void*>(&sp), 0, sizeof(sp));
-  // sp.sched_priority = sched_priority;
+  memset(reinterpret_cast<void*>(&sp), 0, sizeof(sp));
+  sp.sched_priority = sched_priority;
 
-  // if (!spolicy.compare("SCHED_FIFO")) {
-  //   policy = SCHED_FIFO;
-  //   pthread_setschedparam(thread->native_handle(), policy, &sp);
-  //   AINFO << "thread " << tid << " set sched_policy: " << spolicy;
-  // } else if (!spolicy.compare("SCHED_RR")) {
-  //   policy = SCHED_RR;
-  //   pthread_setschedparam(thread->native_handle(), policy, &sp);
-  //   AINFO << "thread " << tid << " set sched_policy: " << spolicy;
-  // } else if (!spolicy.compare("SCHED_OTHER")) {
-  //   setpriority(PRIO_PROCESS, tid, sched_priority);
-  //   AINFO << "thread " << tid << " set sched_policy: " << spolicy;
-  // }
+  if (!spolicy.compare("SCHED_FIFO")) {
+    policy = SCHED_FIFO;
+    pthread_setschedparam(thread->native_handle(), policy, &sp);
+    AINFO << "thread " << tid << " set sched_policy: " << spolicy;
+  } else if (!spolicy.compare("SCHED_RR")) {
+    policy = SCHED_RR;
+    pthread_setschedparam(thread->native_handle(), policy, &sp);
+    AINFO << "thread " << tid << " set sched_policy: " << spolicy;
+  } else if (!spolicy.compare("SCHED_OTHER")) {
+    // setpriority(PRIO_PROCESS, tid, sched_priority);
+    AINFO << "thread " << tid << " set sched_policy: " << spolicy;
+  }
 }
 
 }  // namespace scheduler

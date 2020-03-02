@@ -7,10 +7,10 @@ I have studied its source code and I think the framework is well designed!
 
 ### Why port it to Windows?
 The original version of **Apollo** only supports the *Linux* system.
-But most people use *Windows* computor on their daily basis. For me, I am not willing to install another os for my desktop in order to study and test the **Apollo** source code
+But most people use *Windows* computer on their daily basis. For me, I am not willing to install another os on my desktop in order to study and test the **Apollo** source code
 
 ### Why not fork from original repo?
-When I downloaded from the original repo in *Feb 2020*, I was shocked by size: oh dear, *1.3GB*! I don't need the whole bunch of files in order to study its architecture. It makes people inconvenient to download and study it. Therefore, I have cut unimportant features and only left the cyber core framework. The compiled *dll* only takes about *10MB*.
+When I downloaded from the original repo in *Feb 2020*, I was shocked by size: oh dear, *1.3GB*! I don't need the whole bunch of files in order to study its architecture. It makes people inconvenient to download and study it. Therefore, I have cut unimportant features and only left the core cyber framework. The compiled *dll* only takes about *10MB*.
 
 ### Why not use Bazel for the build system?
 I am not a fan of *Java* and I don't really want to install a Java runtime on my machine. 

@@ -27,6 +27,9 @@
 #include "cyber/service_discovery/topology_manager.h"
 #include "cyber/transport/transport.h"
 
+using apollo::cyber::proto::OptionalMode;
+
+
 namespace apollo {
 namespace cyber {
 
@@ -128,7 +131,7 @@ bool Writer<MessageT>::Init() {
     }
     transmitter_ =
         transport::Transport::Instance()->CreateTransmitter<MessageT>(
-            role_attr_);
+            role_attr_, OptionalMode::RTPS);    // TODO: use default mode: HYBRID
     if (transmitter_ == nullptr) {
       return false;
     }

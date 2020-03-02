@@ -28,6 +28,9 @@
 #include "cyber/event/perf_event_cache.h"
 #include "cyber/transport/transport.h"
 
+using apollo::cyber::proto::OptionalMode;
+
+
 namespace apollo {
 namespace cyber {
 
@@ -219,7 +222,7 @@ auto ReceiverManager<MessageT>::GetReceiver(
               PerfEventCache::Instance()->AddTransportEvent(
                   TransPerf::NOTIFY, reader_attr.channel_id(),
                   msg_info.seq_num());
-            });
+            }, OptionalMode::RTPS);   // TODO: use default mode: HYBRID
   }
   return receiver_map_[channel_name];
 }
