@@ -7,7 +7,7 @@ include("${PROJECT_SOURCE_DIR}/cmake/protobuf_util.cmake")
 
 file(GLOB PROTO_RAW_FILES "*.proto")
 
-gen_proto_src("cyber" ${PROTO_RAW_FILES})
+gen_proto_src_if_not_exist("cyber" 1 ${PROTO_RAW_FILES})
 
 
 # # gen lib

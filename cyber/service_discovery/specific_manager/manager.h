@@ -22,6 +22,8 @@
 #include <mutex>
 #include <string>
 
+#include <cyber/platform.h>
+
 #include "fastrtps/Domain.h"
 #include "fastrtps/attributes/PublisherAttributes.h"
 #include "fastrtps/attributes/SubscriberAttributes.h"

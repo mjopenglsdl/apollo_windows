@@ -15,7 +15,7 @@
  *****************************************************************************/
 
 #include "cyber/cyber.h"
-#include "examples/proto/examples.pb.h"
+#include "src/examples/proto/examples.pb.h"
 
 #include <thread>
 

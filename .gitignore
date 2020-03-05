@@ -37,10 +37,14 @@
 
 back/*
 
-# cyber/proto/cyber/*
-src/examples/proto/src/**
+# proto files
+cyber/proto/linux/*
+# cyber/proto/win/*
+src/examples/proto/linux/**
+src/examples/proto/win/**
 
 build/*
+tmp/*
 
 
 # other files

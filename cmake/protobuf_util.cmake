@@ -8,16 +8,45 @@ include_directories("${PROJECT_SOURCE_DIR}")
 # file(GLOB PROTO_RAW_FILES "cyber/proto/*.proto")
 
 
-# list(GET <list> <element index> [<element index> ...] <output variable>)
+function(gen_proto_src_if_newer)    
+    gen_proto_src(1 ${ARGV})
+endfunction(gen_proto_src_if_newer) 
+
+function(gen_proto_src_if_not_exist)
+    gen_proto_src(0 ${ARGV})
+endfunction(gen_proto_src_if_not_exist)
 
 
-function(gen_proto_src FOLDER_NAME)
 
+function(gen_proto_src)
+
+    list(GET ARGV 0 USE_NEWER)
+    list(GET ARGV 1 FOLDER_NAME)
+
+    # message("USE_NEWER: ${USE_NEWER}")
     # message("FOLDER_NAME: ${FOLDER_NAME}")
-    list(SUBLIST ARGV 1  -1 INPUT_FILES)
-    # message("INPUT_FILES: ${INPUT_FILES}")
 
+
+    if(WIN32)
+        set(PROTO_CPP_OUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/win")
+    else(WIN32)
+        set(PROTO_CPP_OUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/linux")
+    endif(WIN32)
+
+    # message("--cpp_out PROTO_CPP_OUT_DIR: ${PROTO_CPP_OUT_DIR}")
+    # message("--proto_path CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+    # message("-ARGV : ${ARGV}")
+
+    set(INPUT_FILES ${ARGV})
+    
     FOREACH(one_proto_file ${INPUT_FILES})
+        string(LENGTH ${one_proto_file} STR_LEN)
+        # message("STR_LEN: ${STR_LEN}")
+        if(STR_LEN LESS 20)
+            continue()
+        endif()
+        
+
         file(TO_NATIVE_PATH ${one_proto_file} PROTO_NATIVE_PATH)
 
         # message("   PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
@@ -38,22 +67,33 @@ function(gen_proto_src FOLDER_NAME)
         # message("!!! PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
         # message("!!! GENERATED_FILE_PATH: ${GENERATED_FILE_PATH}")
 
-        if(${PROTO_NATIVE_PATH} IS_NEWER_THAN ${GENERATED_FILE_PATH}) 
-            # message("+++++++++++++++++ ${GENERATED_FILE_PATH}")
-            # message("       PROTOBUF_PROTOC_EXECUTABLE: ${PROTOBUF_PROTOC_EXECUTABLE}")
-            # message("       PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
-            # message("       CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
-            # message("       PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
+        if(USE_NEWER)
+            if(${PROTO_NATIVE_PATH} IS_NEWER_THAN ${GENERATED_FILE_PATH}) 
+                # message("+++++++++++++++++ ${GENERATED_FILE_PATH}")
+                # message("       !!!!!!!!!! PROTOBUF_PROTOC_EXECUTABLE: ${PROTOBUF_PROTOC_EXECUTABLE}")
+                # message("       PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+                # message("       CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+                # message("       PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
 
-            EXECUTE_PROCESS(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROJECT_SOURCE_DIR} --cpp_out=${CMAKE_CURRENT_SOURCE_DIR} ${PROTO_NATIVE_PATH}
-            RESULT_VARIABLE rv)
+                EXECUTE_PROCESS(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROJECT_SOURCE_DIR} --cpp_out=${PROTO_CPP_OUT_DIR} ${PROTO_NATIVE_PATH}
+                RESULT_VARIABLE rv)
 
-            # Optional, but that can show the user if something have gone wrong with the proto generation 
-            IF(${rv})
-                MESSAGE("Generation of data model returned ${rv} for proto ${PROTO_NATIVE_PATH}")
-            ENDIF()
-        endif()
+                # Optional, but that can show the user if something have gone wrong with the proto generation 
+                IF(${rv})
+                    MESSAGE("Generation of data model returned ${rv} for proto ${PROTO_CPP_OUT_DIR}")
+                ENDIF()
+            endif()
 
+        else()
+            if(EXISTS ${GENERATED_FILE_PATH}) 
+                EXECUTE_PROCESS(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROJECT_SOURCE_DIR} --cpp_out=${PROTO_CPP_OUT_DIR} ${PROTO_NATIVE_PATH}
+                RESULT_VARIABLE rv)
+
+                IF(${rv})
+                    MESSAGE("Generation of data model returned ${rv} for proto ${PROTO_CPP_OUT_DIR}")
+                ENDIF()
+            endif()
+        endif(USE_NEWER)
+        
     ENDFOREACH(one_proto_file)
-
-endfunction(gen_proto_src) 
+endfunction(gen_proto_src)

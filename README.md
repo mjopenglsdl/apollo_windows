@@ -40,8 +40,8 @@ find_package(Poco REQUIRED Foundation)
 
 ## Install Dependencies
 ### Fast-RTPS
-Use my **MinGW** version(**v1.5.0** branch) [https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw](https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw)
-Use my modified version(**v1.5.0** branch, solved std::string serialize problem) [https://github.com/mjopenglsdl/Fast-CDR/tree/compatible-fastrtps-v1.5.0](https://github.com/mjopenglsdl/Fast-CDR/tree/compatible-fastrtps-v1.5.0)
+* Use my **MinGW** version(**v1.5.0** branch) [https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw](https://github.com/mjopenglsdl/Fast-RTPS/tree/v1.5.0-msys2-mingw)
+* Use my modified version(**v1.5.0** branch, solved std::string serialize problem) [https://github.com/mjopenglsdl/Fast-CDR/tree/compatible-fastrtps-v1.5.0](https://github.com/mjopenglsdl/Fast-CDR/tree/compatible-fastrtps-v1.5.0)
 
 
 
