@@ -18,7 +18,7 @@ I am not a fan of *Java* and I don't really want to install a Java runtime on my
 
 
 ## Progress
-Currently I have successfilly compiled the core lib **libcyber.dll** as and have the *mainboard* program to run. I have commented out some Linux specific code to make it compile. There is still some further work.
+Currently I have successfully compiled the core lib **libcyber.dll** as and have the *talker* and *listener* example programs to run. It works on Linux as well. I have commented out some Linux specific code to make the windows version compile. There is still some further work.
 
 
 ## Windows environment
