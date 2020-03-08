@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5.0)
 
 project(apollo_windows)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if(WIN32)
     add_definitions("-DPOCO_WIN32_UTF8")

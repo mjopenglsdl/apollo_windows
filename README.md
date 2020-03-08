@@ -24,7 +24,8 @@ Currently I have successfully compiled the core lib **libcyber.dll** as and have
 ## Windows environment
 * MSYS2
 * MinGW64
-* cmake
+* CMake
+* C++17
 
 ## Dependencies
 ```cmake
