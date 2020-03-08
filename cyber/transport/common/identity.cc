@@ -16,7 +16,9 @@
 
 #include "cyber/transport/common/identity.h"
 
-// #include <uuid/uuid.h>
+#ifndef __WIN32__
+  #include <uuid/uuid.h>
+#endif
 
 #include "cyber/common/util.h"
 
@@ -25,13 +27,15 @@ namespace cyber {
 namespace transport {
 
 Identity::Identity(bool need_generate) : hash_value_(0), hash_value_str_("") {
-  // memset(data_, 0, ID_SIZE);
-  // if (need_generate) {
-  //   uuid_t uuid;
-  //   uuid_generate(uuid);
-  //   memcpy(data_, uuid, ID_SIZE);
-  //   Update();
-  // }
+#ifndef __WIN32__
+  memset(data_, 0, ID_SIZE);
+  if (need_generate) {
+    uuid_t uuid;
+    uuid_generate(uuid);
+    memcpy(data_, uuid, ID_SIZE);
+    Update();
+  }
+#endif
 }
 
 Identity::Identity(const Identity& another) {

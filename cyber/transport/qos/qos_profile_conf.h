@@ -21,7 +21,7 @@
 
 #include "cyber/proto/qos_profile.pb.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 namespace apollo {
 namespace cyber {

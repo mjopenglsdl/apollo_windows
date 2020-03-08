@@ -29,7 +29,7 @@
 #include "cyber/service_discovery/role/role.h"
 #include "cyber/service_discovery/specific_manager/manager.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 namespace apollo {
 namespace cyber {

@@ -26,7 +26,7 @@
 #include "fastcdr/exceptions/BadParamException.h"
 // #include <cyber/common/log.h>
 
-#ifdef _WIN32
+#ifdef __WIN32__
 // Remove linker warning LNK4221 on Visual Studio
 namespace {
 char dummy;

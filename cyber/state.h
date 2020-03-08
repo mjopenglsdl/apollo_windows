@@ -52,11 +52,11 @@ inline void WaitForShutdown() {
   }
 }
 
-inline void AsyncShutdown() {
-  pid_t pid = getpid();
-  #ifdef _WIN32
+inline void AsyncShutdown() {  
+  #ifdef __WIN32__
     // TODO:
   #else
+    pid_t pid = getpid();
     if (kill(pid, SIGINT) != 0) {
       AERROR << strerror(errno);
     }

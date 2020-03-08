@@ -31,7 +31,7 @@
 #include "cyber/service_discovery/specific_manager/service_manager.h"
 #include "cyber/transport/rtps/participant.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 namespace apollo {
 namespace cyber {

@@ -147,7 +147,7 @@ bool LogFileObject::CreateLogfile(const string& time_pid_string) {
       base_filename_ + filename_extension_ + time_pid_string;
   const char* filename = string_filename.c_str();
   
-  #ifdef WIN32   // TODO: specify glog version
+  #ifdef __WIN32__   // TODO: specify glog version
     int fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, FLAGS_logfile_mode);
   #else
     int fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 0644);   // default mode

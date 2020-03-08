@@ -7,7 +7,7 @@
 #include <limits>
 #include <string>
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 
 #include <google/protobuf/port_def.inc>

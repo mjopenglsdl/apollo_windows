@@ -1,5 +1,6 @@
 #pragma once
 
+
 #ifdef __MINGW32__
     #undef GetClassName
 
@@ -7,7 +8,7 @@
 #endif
 
 
-#ifdef _WIN32
+#ifdef __WIN32__
 
     #ifdef CYBER_EXPORTS
         #define CYBER_API __declspec(dllexport)

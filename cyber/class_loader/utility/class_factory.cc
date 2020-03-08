@@ -17,7 +17,7 @@
 
 #include "cyber/class_loader/class_loader.h"
 
-#include "cyber/platform.h"
+#include "cyber/platform/macros.h"
 
 
 namespace apollo {

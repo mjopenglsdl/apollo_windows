@@ -36,7 +36,9 @@ class XsiSegment : public Segment {
   bool OpenOnly() override;
   bool OpenOrCreate() override;
 
-  // key_t key_;
+#ifndef __WIN32__
+  key_t key_;
+#endif
 };
 
 }  // namespace transport

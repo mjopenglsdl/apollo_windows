@@ -23,9 +23,9 @@
 #include <utility>
 #include <vector>
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
-#if defined(_WIN32)
+#if defined(__WIN32__)
 #if defined(EPROSIMA_USER_DLL_EXPORT)
 #define ePcyberima_user_DllExport __declspec(dllexport)
 #else
@@ -35,7 +35,7 @@
 #define ePcyberima_user_DllExport
 #endif
 
-#if defined(_WIN32)
+#if defined(__WIN32__)
 #if defined(EPROSIMA_USER_DLL_EXPORT)
 #if defined(UnderlayMessage_SOURCE)
 #define UnderlayMessage_DllAPI __declspec(dllexport)
@@ -47,7 +47,7 @@
 #endif
 #else
 #define UnderlayMessage_DllAPI
-#endif  // _WIN32
+#endif  // __WIN32__
 
 namespace eprosima {
 namespace fastcdr {

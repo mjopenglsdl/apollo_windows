@@ -16,8 +16,11 @@
 
 #include "cyber/transport/shm/condition_notifier.h"
 
-// #include <sys/ipc.h>
-// #include <sys/shm.h>
+#ifndef __WIN32__
+  #include <sys/ipc.h>
+  #include <sys/shm.h>
+#endif
+
 #include <thread>
 
 #include "cyber/common/log.h"
@@ -35,17 +38,19 @@ using common::Hash;
 IMPLE_SINGLETON_DLL(ConditionNotifier)
 
 ConditionNotifier::ConditionNotifier() {
-  // key_ = static_cast<key_t>(Hash("/apollo/cyber/transport/shm/notifier"));
-  // ADEBUG << "condition notifier key: " << key_;
-  // shm_size_ = sizeof(Indicator);
+#ifndef __WIN32__
+    key_ = static_cast<key_t>(Hash("/apollo/cyber/transport/shm/notifier"));
+    ADEBUG << "condition notifier key: " << key_;
+    shm_size_ = sizeof(Indicator);
 
-  // if (!Init()) {
-  //   AERROR << "fail to init condition notifier.";
-  //   is_shutdown_.store(true);
-  //   return;
-  // }
-  // next_seq_ = indicator_->next_seq.load();
-  // ADEBUG << "next_seq: " << next_seq_;
+    if (!Init()) {
+      AERROR << "fail to init condition notifier.";
+      is_shutdown_.store(true);
+      return;
+    }
+    next_seq_ = indicator_->next_seq.load();
+    ADEBUG << "next_seq: " << next_seq_;
+#endif
 }
 
 ConditionNotifier::~ConditionNotifier() { Shutdown(); }
@@ -113,101 +118,112 @@ bool ConditionNotifier::Listen(int timeout_ms, ReadableInfo* info) {
 bool ConditionNotifier::Init() { return OpenOrCreate(); }
 
 bool ConditionNotifier::OpenOrCreate() {
-  // // create managed_shm_
-  // int retry = 0;
-  // int shmid = 0;
-  // while (retry < 2) {
-  //   shmid = shmget(key_, shm_size_, 0644 | IPC_CREAT | IPC_EXCL);
-  //   if (shmid != -1) {
-  //     break;
-  //   }
+#ifndef __WIN32__
+  // create managed_shm_
+  int retry = 0;
+  int shmid = 0;
+  while (retry < 2) {
+    shmid = shmget(key_, shm_size_, 0644 | IPC_CREAT | IPC_EXCL);
+    if (shmid != -1) {
+      break;
+    }
 
-  //   if (EINVAL == errno) {
-  //     AINFO << "need larger space, recreate.";
-  //     Reset();
-  //     Remove();
-  //     ++retry;
-  //   } else if (EEXIST == errno) {
-  //     ADEBUG << "shm already exist, open only.";
-  //     return OpenOnly();
-  //   } else {
-  //     break;
-  //   }
-  // }
+    if (EINVAL == errno) {
+      AINFO << "need larger space, recreate.";
+      Reset();
+      Remove();
+      ++retry;
+    } else if (EEXIST == errno) {
+      ADEBUG << "shm already exist, open only.";
+      return OpenOnly();
+    } else {
+      break;
+    }
+  }
 
-  // if (shmid == -1) {
-  //   AERROR << "create shm failed, error code: " << strerror(errno);
-  //   return false;
-  // }
+  if (shmid == -1) {
+    AERROR << "create shm failed, error code: " << strerror(errno);
+    return false;
+  }
 
-  // // attach managed_shm_
-  // managed_shm_ = shmat(shmid, nullptr, 0);
-  // if (managed_shm_ == reinterpret_cast<void*>(-1)) {
-  //   AERROR << "attach shm failed.";
-  //   shmctl(shmid, IPC_RMID, 0);
-  //   return false;
-  // }
+  // attach managed_shm_
+  managed_shm_ = shmat(shmid, nullptr, 0);
+  if (managed_shm_ == reinterpret_cast<void*>(-1)) {
+    AERROR << "attach shm failed.";
+    shmctl(shmid, IPC_RMID, 0);
+    return false;
+  }
 
-  // // create indicator_
-  // indicator_ = new (managed_shm_) Indicator();
-  // if (indicator_ == nullptr) {
-  //   AERROR << "create indicator failed.";
-  //   shmdt(managed_shm_);
-  //   managed_shm_ = nullptr;
-  //   shmctl(shmid, IPC_RMID, 0);
-  //   return false;
-  // }
+  // create indicator_
+  indicator_ = new (managed_shm_) Indicator();
+  if (indicator_ == nullptr) {
+    AERROR << "create indicator failed.";
+    shmdt(managed_shm_);
+    managed_shm_ = nullptr;
+    shmctl(shmid, IPC_RMID, 0);
+    return false;
+  }
 
-  // ADEBUG << "open or create true.";
+  ADEBUG << "open or create true.";
+#endif
+
   return true;
 }
 
 bool ConditionNotifier::OpenOnly() {
-  // // get managed_shm_
-  // int shmid = shmget(key_, 0, 0644);
-  // if (shmid == -1) {
-  //   AERROR << "get shm failed, error: " << strerror(errno);
-  //   return false;
-  // }
+#ifndef __WIN32__
+  // get managed_shm_
+  int shmid = shmget(key_, 0, 0644);
+  if (shmid == -1) {
+    AERROR << "get shm failed, error: " << strerror(errno);
+    return false;
+  }
 
-  // // attach managed_shm_
-  // managed_shm_ = shmat(shmid, nullptr, 0);
-  // if (managed_shm_ == reinterpret_cast<void*>(-1)) {
-  //   AERROR << "attach shm failed, error: " << strerror(errno);
-  //   return false;
-  // }
+  // attach managed_shm_
+  managed_shm_ = shmat(shmid, nullptr, 0);
+  if (managed_shm_ == reinterpret_cast<void*>(-1)) {
+    AERROR << "attach shm failed, error: " << strerror(errno);
+    return false;
+  }
 
-  // // get indicator_
-  // indicator_ = reinterpret_cast<Indicator*>(managed_shm_);
-  // if (indicator_ == nullptr) {
-  //   AERROR << "get indicator failed.";
-  //   shmdt(managed_shm_);
-  //   managed_shm_ = nullptr;
-  //   return false;
-  // }
+  // get indicator_
+  indicator_ = reinterpret_cast<Indicator*>(managed_shm_);
+  if (indicator_ == nullptr) {
+    AERROR << "get indicator failed.";
+    shmdt(managed_shm_);
+    managed_shm_ = nullptr;
+    return false;
+  }
 
-  // ADEBUG << "open true.";
+  ADEBUG << "open true.";
+#endif
+
   return true;
 }
 
 bool ConditionNotifier::Remove() {
-  // int shmid = shmget(key_, 0, 0644);
-  // if (shmid == -1 || shmctl(shmid, IPC_RMID, 0) == -1) {
-  //   AERROR << "remove shm failed, error code: " << strerror(errno);
-  //   return false;
-  // }
-  // ADEBUG << "remove success.";
+#ifndef __WIN32__
+  int shmid = shmget(key_, 0, 0644);
+  if (shmid == -1 || shmctl(shmid, IPC_RMID, 0) == -1) {
+    AERROR << "remove shm failed, error code: " << strerror(errno);
+    return false;
+  }
+  ADEBUG << "remove success.";
+#endif
 
   return true;
 }
 
 void ConditionNotifier::Reset() {
-  // indicator_ = nullptr;
-  // if (managed_shm_ != nullptr) {
-  //   shmdt(managed_shm_);
-  //   managed_shm_ = nullptr;
-  // }
+#ifndef __WIN32__
+  indicator_ = nullptr;
+  if (managed_shm_ != nullptr) {
+    shmdt(managed_shm_);
+    managed_shm_ = nullptr;
+  }
+#endif
 }
+
 
 }  // namespace transport
 }  // namespace cyber

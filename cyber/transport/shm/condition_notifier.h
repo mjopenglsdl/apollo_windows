@@ -53,7 +53,10 @@ class ConditionNotifier : public NotifierBase {
   bool Remove();
   void Reset();
 
-  // key_t key_ = 0;
+#ifndef __WIN32__
+  key_t key_ = 0;
+#endif
+
   void* managed_shm_ = nullptr;
   size_t shm_size_ = 0;
   Indicator* indicator_ = nullptr;

@@ -60,6 +60,10 @@ void InitLogger(const char* binary_name) {
 
   // Init glog
   google::InitGoogleLogging(binary_name);
+
+  // debug, TODO: to cfg
+  FLAGS_v = 5; 
+  
   google::SetLogDestination(google::GLOG_ERROR, "");
   google::SetLogDestination(google::GLOG_WARNING, "");
   google::SetLogDestination(google::GLOG_FATAL, "");
@@ -97,7 +101,7 @@ bool Init(const char* binary_name) {
   InitLogger(binary_name);
   auto thread = const_cast<std::thread*>(async_logger->LogThread());
 
-#ifndef WIN32
+#ifndef __WIN32__
   scheduler::Instance()->SetInnerThreadAttr("async_log", thread);
 #endif      
 

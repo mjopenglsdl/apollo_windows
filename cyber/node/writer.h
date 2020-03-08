@@ -132,6 +132,8 @@ bool Writer<MessageT>::Init() {
     transmitter_ =
         transport::Transport::Instance()->CreateTransmitter<MessageT>(
             role_attr_, OptionalMode::RTPS);    // TODO: use default mode: HYBRID
+            // role_attr_);
+
     if (transmitter_ == nullptr) {
       return false;
     }

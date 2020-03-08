@@ -29,7 +29,7 @@
 #include "google/protobuf/dynamic_message.h"
 #include "google/protobuf/io/tokenizer.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 
 namespace apollo {

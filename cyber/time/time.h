@@ -22,7 +22,7 @@
 
 #include "cyber/time/duration.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 namespace apollo {
 namespace cyber {

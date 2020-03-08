@@ -59,12 +59,6 @@ bool Manager::StartDiscovery(RtpsParticipant* participant) {
     return true;
   }
 
-  // bool ret1 = CreatePublisher(participant);
-  // bool ret2 =  CreateSubscriber(participant);
-
-  // cout<<"!!!!!!!!! ret1: "<<ret1<<endl;
-  // cout<<"ret2: "<<ret2<<endl;
-
   if (!CreatePublisher(participant) || !CreateSubscriber(participant)) {
     AERROR << "create publisher or subscriber failed.";
     StopDiscovery();
@@ -157,7 +151,8 @@ bool Manager::CreatePublisher(RtpsParticipant* participant) {
   publisher_ =
       eprosima::fastrtps::Domain::createPublisher(participant, pub_attr);
 
-      // cout<<"pub: "<<(publisher_ != nullptr)<<", attr: "<< pub_attr.topic.getTopicDataType()<<endl;
+  AINFO<<"pub_attr: "<<pub_attr.topic.topicName<<", "<<pub_attr.topic.topicDataType;
+
   return publisher_ != nullptr;
 }
 
@@ -170,6 +165,8 @@ bool Manager::CreateSubscriber(RtpsParticipant* participant) {
   listener_ = new SubscriberListener(
       std::bind(&Manager::OnRemoteChange, this, std::placeholders::_1));
 
+  AINFO<<"sub_attr: "<<sub_attr.topic.topicName<<", "<<sub_attr.topic.topicDataType;
+  
   subscriber_ = eprosima::fastrtps::Domain::createSubscriber(
       participant, sub_attr, listener_);
       // cout<<"sub: "<<(subscriber_ != nullptr)<<endl;
@@ -236,8 +233,8 @@ bool Manager::Publish(const ChangeMsg& msg) {
   {
     std::lock_guard<std::mutex> lg(lock_);
     if (publisher_ != nullptr) {
-        // AINFO << "SEND DATA: "<<m.data()<<", length: "<<m.data().length();
-        // AINFO << "     datatype: "<<m.datatype()<<", length: "<<m.datatype().length();
+        AINFO << "publisher_->write>>> "<<m.data()<<", length: "<<m.data().length();
+        AINFO << "     datatype: "<<m.datatype()<<", length: "<<m.datatype().length();
       return publisher_->write(reinterpret_cast<void*>(&m));
     }
   }

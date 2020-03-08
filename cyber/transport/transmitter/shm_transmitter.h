@@ -59,8 +59,6 @@ class ShmTransmitter : public Transmitter<M> {
 
 
 
-
-
 template <typename M>
 ShmTransmitter<M>::ShmTransmitter(const RoleAttributes& attr)
     : Transmitter<M>(attr),
@@ -98,7 +96,11 @@ void ShmTransmitter<M>::Disable() {
 template <typename M>
 bool ShmTransmitter<M>::Transmit(const MessagePtr& msg,
                                  const MessageInfo& msg_info) {
+#ifndef __WIN32__ 
   return Transmit(*msg, msg_info);
+#else
+  return true;
+#endif
 }
 
 template <typename M>

@@ -35,7 +35,7 @@
 #include "google/protobuf/io/zero_copy_stream_impl.h"
 #include "google/protobuf/text_format.h"
 
-#include "cyber/platform.h"
+#include "cyber/platform/macros.h"
 
 /**
  * @namespace apollo::common::util

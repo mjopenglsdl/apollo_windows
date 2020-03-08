@@ -14,9 +14,8 @@
  * limitations under the License.
  *****************************************************************************/
 
-#include "cyber/common/global_data.h"
 
-#ifdef WIN32
+#ifdef __WIN32__
   #include <Winsock2.h>
 #else
   #include <arpa/inet.h>
@@ -31,6 +30,7 @@
 #include <functional>
 
 #include "cyber/common/environment.h"
+#include "cyber/common/global_data.h"
 #include "cyber/common/file.h"
 
 namespace apollo {
@@ -134,7 +134,7 @@ void GlobalData::InitHostInfo() {
     }
   }
 
-#ifdef WIN32
+#ifdef __WIN32__
   
 #else
   ifaddrs* ifaddr = nullptr;

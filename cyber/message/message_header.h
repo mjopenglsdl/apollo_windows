@@ -17,7 +17,7 @@
 #ifndef CYBER_MESSAGE_MESSAGE_HEADER_H_
 #define CYBER_MESSAGE_MESSAGE_HEADER_H_
 
-#ifdef _WIN32
+#ifdef __WIN32__
   #include <winsock.h>
 #else
   #include <arpa/inet.h>

@@ -26,7 +26,7 @@
 #include "cyber/transport/shm/shm_conf.h"
 #include "cyber/transport/shm/state.h"
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 namespace apollo {
 namespace cyber {

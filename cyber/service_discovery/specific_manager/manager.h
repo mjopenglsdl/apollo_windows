@@ -22,7 +22,7 @@
 #include <mutex>
 #include <string>
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 #include "fastrtps/Domain.h"
 #include "fastrtps/attributes/PublisherAttributes.h"

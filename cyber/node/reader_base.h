@@ -223,6 +223,7 @@ auto ReceiverManager<MessageT>::GetReceiver(
                   TransPerf::NOTIFY, reader_attr.channel_id(),
                   msg_info.seq_num());
             }, OptionalMode::RTPS);   // TODO: use default mode: HYBRID
+            // });
   }
   return receiver_map_[channel_name];
 }

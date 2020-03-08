@@ -22,7 +22,7 @@
 #include <memory>
 #include <string>
 
-#include <cyber/platform.h>
+#include "cyber/platform/macros.h"
 
 
 namespace apollo {

@@ -17,14 +17,19 @@
 #include "cyber/scheduler/processor.h"
 
 #include <sched.h>
-// #include <sys/resource.h>
-// #include <sys/syscall.h>
+
+#ifndef __WIN32__
+  #include <sys/resource.h>
+#endif
+
 #include <chrono>
 
 #include "cyber/common/global_data.h"
 #include "cyber/common/log.h"
 #include "cyber/croutine/croutine.h"
 #include "cyber/time/time.h"
+
+#include "cyber/platform/func.h"
 
 namespace apollo {
 namespace cyber {
@@ -37,7 +42,9 @@ Processor::Processor() { running_.store(true); }
 Processor::~Processor() { Stop(); }
 
 void Processor::Run() {
-  // tid_.store(static_cast<int>(syscall(SYS_gettid)));
+
+  tid_.store(cyber::platform::GetThreadId() );
+
   AINFO << "processor_tid: " << tid_;
   snap_shot_->processor_id.store(tid_);
 
