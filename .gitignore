@@ -39,7 +39,7 @@ back/*
 
 # proto files
 cyber/proto/linux/*
-# cyber/proto/win/*
+cyber/proto/win/*
 src/examples/proto/linux/**
 src/examples/proto/win/**
 

@@ -26,7 +26,6 @@ function(gen_proto_src)
     # message("USE_NEWER: ${USE_NEWER}")
     # message("FOLDER_NAME: ${FOLDER_NAME}")
 
-
     if(WIN32)
         set(PROTO_CPP_OUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/win")
     else(WIN32)
@@ -35,7 +34,7 @@ function(gen_proto_src)
 
     # message("--cpp_out PROTO_CPP_OUT_DIR: ${PROTO_CPP_OUT_DIR}")
     # message("--proto_path CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
-    # message("-ARGV : ${ARGV}")
+    # message("-ARGV : ${ARGV}") 
 
     set(INPUT_FILES ${ARGV})
     
@@ -46,7 +45,6 @@ function(gen_proto_src)
             continue()
         endif()
         
-
         file(TO_NATIVE_PATH ${one_proto_file} PROTO_NATIVE_PATH)
 
         # message("   PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
@@ -61,10 +59,10 @@ function(gen_proto_src)
         # message("0000000 GEN_PROTO_FILE_NAME: ${GEN_PROTO_FILE_NAME}")
 
         set(GENERATED_FILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/${FOLDER_NAME}/proto/${GEN_PROTO_FILE_NAME}")
-        # message("   generated file path: ${GENERATED_FILE_PATH}")  
-        # file(TO_NATIVE_PATH ${GENERATED_FILE_PATH} GENERATED_FILE_PATH)
+        # message("   generated file path: ${GENERATED_FILE_PATH}")   
+        file(TO_NATIVE_PATH ${GENERATED_FILE_PATH} GENERATED_FILE_PATH)
 
-        # message("!!! PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}")
+        # message("!!! PROTO_NATIVE_PATH: ${PROTO_NATIVE_PATH}") 
         # message("!!! GENERATED_FILE_PATH: ${GENERATED_FILE_PATH}")
 
         if(USE_NEWER)
@@ -85,7 +83,7 @@ function(gen_proto_src)
             endif()
 
         else()
-            if(EXISTS ${GENERATED_FILE_PATH}) 
+            if(NOT EXISTS ${GENERATED_FILE_PATH}) 
                 EXECUTE_PROCESS(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROJECT_SOURCE_DIR} --cpp_out=${PROTO_CPP_OUT_DIR} ${PROTO_NATIVE_PATH}
                 RESULT_VARIABLE rv)
 
